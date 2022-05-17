@@ -4,5 +4,5 @@ import { IUserAuthRequest } from 'types/user-auth.types';
 
 export const requestLoginThunkAction = createAsyncThunk(
     'user/login',
-    async (authInfo: IUserAuthRequest) => requestLogin(authInfo),
+    async (authInfo: IUserAuthRequest) => await requestLogin(authInfo),
 );
