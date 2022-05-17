@@ -7,6 +7,8 @@ import { HomePage } from 'pages/HomePage';
 import { HotelPage } from 'pages/HotelPage';
 import { LoginPage } from 'pages/LoginPage';
 
+import { PrivateRoute } from 'components/PrivateRoute';
+
 export const App: React.FC = () => {
     return (
         <BrowserRouter>
@@ -14,7 +16,14 @@ export const App: React.FC = () => {
                 <Route path={AppRoute.Home()} element={<HomePage />} />
                 <Route path={AppRoute.Hotel(':id')} element={<HotelPage />} />
                 <Route path={AppRoute.Login()} element={<LoginPage />} />
-                <Route path={AppRoute.Favorites()} element={<FavoritesPage />} />
+                <Route
+                    path={AppRoute.Favorites()}
+                    element={
+                        <PrivateRoute>
+                            <FavoritesPage />
+                        </PrivateRoute>
+                    }
+                />
             </Routes>
         </BrowserRouter>
     );
