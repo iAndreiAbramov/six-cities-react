@@ -6,6 +6,7 @@ import { FavoritesPage } from 'pages/FavoritesPage';
 import { HomePage } from 'pages/HomePage';
 import { HotelPage } from 'pages/HotelPage';
 import { LoginPage } from 'pages/LoginPage';
+import { NotFoundPage } from 'pages/NotFound';
 
 import { PrivateRoute } from 'components/PrivateRoute';
 
@@ -24,6 +25,7 @@ export const App: React.FC = () => {
                         </PrivateRoute>
                     }
                 />
+                <Route path="*" element={<NotFoundPage />} />
             </Routes>
         </BrowserRouter>
     );
