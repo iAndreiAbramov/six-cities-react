@@ -1,4 +1,5 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
+import { IUserAuthResponse } from 'types/user-auth.types';
 
 import { getToken, setToken } from './token';
 
@@ -25,9 +26,9 @@ api.interceptors.request.use(
 );
 
 api.interceptors.response.use(
-    (response) => {
-        const token = response.headers[AUTH_TOKEN_NAME];
-        if (response.headers[AUTH_TOKEN_NAME]) {
+    (response: AxiosResponse<IUserAuthResponse>) => {
+        const token = response?.data?.token;
+        if (token) {
             setToken(token);
         }
         return response;
