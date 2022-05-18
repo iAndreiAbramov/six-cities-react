@@ -5,13 +5,13 @@ import { requestLoginThunkAction } from 'store/thunk-actions/login-thunk-actions
 import { UserStoredDataTypes } from 'types/user-auth.types';
 
 export interface IUserReducer {
-    error?: string | null;
+    error?: string;
     fetchStatus: FetchStatus;
     data: UserStoredDataTypes;
 }
 
 const initialState: IUserReducer = {
-    error: null,
+    error: undefined,
     fetchStatus: FetchStatus.Initial,
     data: {} as UserStoredDataTypes,
 };
@@ -24,17 +24,17 @@ const userSlice = createSlice({
         builder
             .addCase(requestLoginThunkAction.pending, (state) => {
                 state.fetchStatus = FetchStatus.Fetching;
-                state.error = null;
+                state.error = undefined;
                 state.data = {} as UserStoredDataTypes;
             })
             .addCase(requestLoginThunkAction.fulfilled, (state, { payload }) => {
                 state.fetchStatus = FetchStatus.Done;
-                state.error = null;
-                state.data = payload;
+                state.error = undefined;
+                state.data = payload as UserStoredDataTypes;
             })
             .addCase(requestLoginThunkAction.rejected, (state, { error }) => {
                 state.fetchStatus = FetchStatus.Error;
-                state.error = JSON.stringify(error);
+                state.error = error.message;
                 state.data = {} as UserStoredDataTypes;
             });
     },

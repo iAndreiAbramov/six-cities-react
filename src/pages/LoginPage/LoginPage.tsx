@@ -1,12 +1,29 @@
 import { AppRoute } from 'constants/AppRoute';
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link, Navigate } from 'react-router-dom';
+import { selectUserError, selectUserName } from 'store/selectors/user-selectors';
+import { useAppDispatch } from 'store/store';
+import { requestLoginThunkAction } from 'store/thunk-actions/login-thunk-actions';
+import { IUserAuthRequest } from 'types/user-auth.types';
 
 import { LoginForm } from 'components/LoginForm';
 import { SvgInject } from 'components/SvgInject';
 
 export const LoginPage: React.FC = () => {
+    const dispatch = useAppDispatch();
+    const userError = useSelector(selectUserError);
+    const userName = useSelector(selectUserName);
+
+    const handleFormSubmit = (values: IUserAuthRequest) => {
+        void dispatch(requestLoginThunkAction(values));
+    };
+
+    if (userName) {
+        return <Navigate to={AppRoute.Home()} />;
+    }
+
     return (
         <>
             <SvgInject />
@@ -31,7 +48,7 @@ export const LoginPage: React.FC = () => {
 
                 <main className="page__main page__main--login">
                     <div className="page__login-container container">
-                        <LoginForm />
+                        <LoginForm handleFormSubmit={handleFormSubmit} error={userError} />
                         <section className="locations locations--login locations--current">
                             <div className="locations__item">
                                 <a className="locations__item-link" href="#">

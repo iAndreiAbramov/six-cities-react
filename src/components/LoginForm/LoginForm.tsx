@@ -1,30 +1,23 @@
-import { AppRoute } from 'constants/AppRoute';
-
 import React from 'react';
 import { Field, Form } from 'react-final-form';
-import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from 'store/store';
-import { requestLoginThunkAction } from 'store/thunk-actions/login-thunk-actions';
 import { IUserAuthRequest } from 'types/user-auth.types';
 
 import { validateLoginForm } from './LoginForm.utils';
 
-export const LoginForm: React.FC = () => {
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
+interface ILoginFormProps {
+    error?: string;
+    handleFormSubmit: (values: IUserAuthRequest) => void;
+}
 
-    const handleFormSubmit = (values: IUserAuthRequest) => {
-        dispatch(requestLoginThunkAction(values))
-            .then(() => navigate(AppRoute.Home()))
-            .catch((error) => {
-                throw error;
-            });
-    };
-
+export const LoginForm: React.FC<ILoginFormProps> = ({ handleFormSubmit, error }) => {
     return (
         <Form onSubmit={handleFormSubmit} validate={validateLoginForm}>
             {({ handleSubmit, submitFailed, hasValidationErrors, errors, submitting }) => (
-                <section className={`login ${submitFailed && hasValidationErrors ? 'shake' : ''}`}>
+                <section
+                    className={`login ${
+                        (submitFailed && hasValidationErrors) || error ? 'shake' : ''
+                    }`}
+                >
                     <h1 className="login__title">Sign in</h1>
                     <form className="login__form form" onSubmit={handleSubmit}>
                         <Field name="email">
@@ -86,6 +79,15 @@ export const LoginForm: React.FC = () => {
                             }}
                         >
                             {submitFailed && errors?.password}
+                        </div>
+                        <div
+                            style={{
+                                color: 'darkred',
+                                fontSize: '12px',
+                                marginTop: '12px',
+                            }}
+                        >
+                            {error && error}
                         </div>
                     </form>
                 </section>
