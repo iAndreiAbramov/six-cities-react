@@ -23,8 +23,8 @@ export const LoginForm: React.FC = () => {
 
     return (
         <Form onSubmit={handleFormSubmit} validate={validateLoginForm}>
-            {({ handleSubmit, submitFailed, errors }) => (
-                <section className="login">
+            {({ handleSubmit, submitFailed, hasValidationErrors, errors, submitting }) => (
+                <section className={`login ${submitFailed && hasValidationErrors ? 'shake' : ''}`}>
                     <h1 className="login__title">Sign in</h1>
                     <form className="login__form form" onSubmit={handleSubmit}>
                         <Field name="email">
@@ -62,7 +62,11 @@ export const LoginForm: React.FC = () => {
                                 </div>
                             )}
                         </Field>
-                        <button className="login__submit form__submit button" type="submit">
+                        <button
+                            className="login__submit form__submit button"
+                            type="submit"
+                            disabled={submitting || (submitFailed && hasValidationErrors)}
+                        >
                             Sign in
                         </button>
                         <div
