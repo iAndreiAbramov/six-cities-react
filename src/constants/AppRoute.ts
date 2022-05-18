@@ -1,5 +1,5 @@
 export const AppRoute = {
-    Home: (): string => '/',
+    Home: (): string => `/`,
     Hotel: (id: string): string => `/hotel/${id}`,
     Favorites: (): string => `/favorites`,
     Login: (): string => '/login',

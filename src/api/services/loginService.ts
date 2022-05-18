@@ -14,7 +14,7 @@ export const requestLogin = async (authInfo: IUserAuthRequest): Promise<IUserAut
         .catch((error: AxiosError) => {
             throw new Error(
                 (error?.response?.data as { error: string })?.error ||
-                    'Unknown error, please try later',
+                    'Unknown server error, please try later',
             );
         });
 

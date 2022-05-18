@@ -7,11 +7,7 @@ import { adaptUserToFront } from 'utils/adapters';
 export const requestLoginThunkAction = createAsyncThunk(
     'user/login',
     async (authInfo: IUserAuthRequest) =>
-        await requestLogin(authInfo)
-            .then((data) => adaptUserToFront(data))
-            .catch((error: string) => {
-                throw error;
-            }),
+        await requestLogin(authInfo).then((data) => adaptUserToFront(data)),
 );
 
 export const requestLoginCheckThunkAction = createAsyncThunk(
