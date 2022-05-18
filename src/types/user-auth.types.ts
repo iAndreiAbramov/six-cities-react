@@ -4,12 +4,18 @@ export interface IUserAuthRequest {
 }
 
 export interface IUserAuthResponse {
-    avatar_url?: string;
+    ['avatar_url']?: string;
     email?: string;
     id?: number;
-    is_pro?: boolean;
+    ['is_pro']?: boolean;
     name?: string;
     token?: string;
 }
 
-export type UserStoredDataTypes = Omit<IUserAuthResponse, 'token'>;
+export interface IUserFront {
+    avatarUrl?: string;
+    email?: string;
+    id?: number;
+    isPro?: boolean;
+    name?: string;
+}

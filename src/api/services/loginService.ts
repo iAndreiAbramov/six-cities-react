@@ -17,3 +17,8 @@ export const requestLogin = async (authInfo: IUserAuthRequest): Promise<IUserAut
                     'Unknown error, please try later',
             );
         });
+
+export const requestLoginCheck = async (): Promise<IUserAuthResponse> =>
+    await api.get<Promise<IUserAuthResponse>>(ApiRoute.Login()).then((response) => response?.data);
+
+export const requestLogout = async (): Promise<void> => await api.delete(ApiRoute.Logout());

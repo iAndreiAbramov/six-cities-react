@@ -3,7 +3,7 @@ import { AppRoute } from 'constants/AppRoute';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
-import { selectUserError, selectUserName } from 'store/selectors/user-selectors';
+import { selectUserEmail, selectUserError } from 'store/selectors/user-selectors';
 import { useAppDispatch } from 'store/store';
 import { requestLoginThunkAction } from 'store/thunk-actions/login-thunk-actions';
 import { IUserAuthRequest } from 'types/user-auth.types';
@@ -14,13 +14,13 @@ import { SvgInject } from 'components/SvgInject';
 export const LoginPage: React.FC = () => {
     const dispatch = useAppDispatch();
     const userError = useSelector(selectUserError);
-    const userName = useSelector(selectUserName);
+    const userEmail = useSelector(selectUserEmail);
 
     const handleFormSubmit = (values: IUserAuthRequest) => {
         void dispatch(requestLoginThunkAction(values));
     };
 
-    if (userName) {
+    if (userEmail) {
         return <Navigate to={AppRoute.Home()} />;
     }
 

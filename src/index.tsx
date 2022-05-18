@@ -1,10 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
+import { ThunkDispatch } from '@reduxjs/toolkit';
+import { Action } from 'redux';
 
 import { App } from './components/App';
-import { store } from './store/store';
+import { RootReducerTypes, store } from './store/store';
+import { requestLoginCheckThunkAction } from './store/thunk-actions/login-thunk-actions';
 import reportWebVitals from './reportWebVitals';
+
+void (store.dispatch as ThunkDispatch<RootReducerTypes, unknown, Action>)(
+    requestLoginCheckThunkAction(),
+);
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
