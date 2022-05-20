@@ -1,26 +1,21 @@
+import { CityName } from 'constants/Cities';
+
 import React from 'react';
-import { TabQueryName, TabScreenName } from 'types/tabs.types';
 
 interface ITabItem {
-    name: TabScreenName;
-    queryName: TabQueryName;
+    name: CityName;
     isActive?: boolean;
-    handleClick: (queryName: TabQueryName) => void;
+    handleClick: (queryName: CityName) => void;
 }
 
-export const HomePageTabsItem: React.FC<ITabItem> = ({
-    name,
-    isActive,
-    handleClick,
-    queryName,
-}) => {
+export const HomePageTabsItem: React.FC<ITabItem> = ({ name, isActive, handleClick }) => {
     return (
         <li className="locations__item">
             <span
                 className={`locations__item-link tabs__item ${
                     isActive ? 'tabs__item--active' : ''
                 }`}
-                onClick={() => handleClick(queryName)}
+                onClick={() => handleClick(name)}
                 style={{ cursor: 'pointer' }}
             >
                 <span>{name}</span>
