@@ -1,8 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { requestHotelsList } from 'api/services/hotelsService';
+import { requestHotel, requestHotelsList } from 'api/services/hotels-service';
 
-import { adaptHotelsListToFront } from 'utils/adapters';
+import { adaptHotelsListToFront, adaptHotelToFront } from 'utils/adapters';
 
 export const requestHotelsThunkAction = createAsyncThunk('hotels/requestList', async () =>
     requestHotelsList().then((data) => adaptHotelsListToFront(data)),
+);
+
+export const requestHotelThunkAction = createAsyncThunk('hotel/requestHotel', async (id: string) =>
+    requestHotel(id).then((data) => adaptHotelToFront(data)),
 );
