@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { Action } from 'redux';
@@ -9,17 +9,19 @@ import { RootReducerTypes, store } from './store/store';
 import { requestLoginCheckThunkAction } from './store/thunk-actions/login-thunk-actions';
 import reportWebVitals from './reportWebVitals';
 
+import 'leaflet/dist/leaflet.css';
+
 void (store.dispatch as ThunkDispatch<RootReducerTypes, unknown, Action>)(
     requestLoginCheckThunkAction(),
 );
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-root.render(
+ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
             <App />
         </Provider>
     </React.StrictMode>,
+    document.getElementById('root'),
 );
 
 // If you want to start measuring performance in your app, pass a function

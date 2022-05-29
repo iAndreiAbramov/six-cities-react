@@ -14,19 +14,27 @@
     "useTabs": false,
     "overrides": [
         {
-            "files": ["**/*.json", ".prettierrc", ".eslintrc"],
+            "files": [
+                "**/*.json",
+                ".prettierrc",
+                ".eslintrc"
+            ],
             "options": {
                 "parser": "json"
             }
         },
         {
-            "files": ["**/*.scss"],
+            "files": [
+                "**/*.scss"
+            ],
             "options": {
                 "parser": "scss"
             }
         },
         {
-            "files": ["**/*.css"],
+            "files": [
+                "**/*.css"
+            ],
             "options": {
                 "parser": "css"
             }
