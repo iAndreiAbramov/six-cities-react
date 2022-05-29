@@ -4,5 +4,10 @@ import { RootReducerTypes } from 'store/store';
 
 const getHotelState = (state: RootReducerTypes): IHotelReducer => state.hotel;
 
-export const selectHotel = createSelector([getHotelState], (state) => state.hotelData);
-export const selectHotelFetchStatus = createSelector([getHotelState], (state) => state.fetchStatus);
+export const selectHotelData = createSelector([getHotelState], (state) => state.hotelData);
+// export const selectHotelFetchStatus = createSelector(
+//     [getHotelState],
+//     (state) => state.hotelFetchStatus,
+// );
+//
+export const selectComments = createSelector([getHotelState], (state) => state.commentsData);

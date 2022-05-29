@@ -1,3 +1,4 @@
+import { ICommentGetBack, ICommentGetFront } from 'types/comment.types';
 import { IHotelBack, IHotelFront } from 'types/hotel.types';
 import { IUserAuthResponse, IUserFront } from 'types/user-auth.types';
 
@@ -56,3 +57,22 @@ export const adaptHotelToFront = (hotelBack: IHotelBack): IHotelFront => {
 export const adaptHotelsListToFront = (hotelsListBack: IHotelBack[]): IHotelFront[] => {
     return hotelsListBack.map((hotel) => adaptHotelToFront(hotel));
 };
+
+export const adaptCommentToFront = (commentBack: ICommentGetBack): ICommentGetFront => {
+    const { comment, id, rating, date, user } = commentBack;
+    return {
+        id,
+        comment,
+        rating,
+        date,
+        user: {
+            id: user.id,
+            isPro: user['is_pro'],
+            avatarUrl: user['avatar_url'],
+            name: user.name,
+        },
+    };
+};
+
+export const adaptCommentsToFront = (commentsBack: ICommentGetBack[]): ICommentGetFront[] =>
+    commentsBack.map((comment) => adaptCommentToFront(comment));
