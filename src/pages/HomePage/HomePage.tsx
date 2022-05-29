@@ -2,16 +2,16 @@ import { AppRoute } from 'constants/AppRoute';
 import { CityName } from 'constants/Cities';
 import { FetchStatus } from 'constants/FetchStatus';
 import { QueryParam } from 'constants/QueryParam';
-import { SortOption } from 'constants/SortOptions';
 
 import React, { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useHotels } from 'hooks/useHotels';
+import { useHotelsFilter } from 'hooks/useHotelsFilter';
 import { useQuery } from 'hooks/useQuery';
 import { selectHotelsFetchStatus } from 'store/selectors/hotels-selectors';
 import { useAppDispatch } from 'store/store';
 import { requestHotelsThunkAction } from 'store/thunk-actions/hotels-thunk-actions';
+import { SortOption } from 'types/sort-options.types';
 
 import { HomePageMap } from 'components/HomePageMap';
 import { HomePageNoContent } from 'components/HomePageNoContent';
@@ -25,7 +25,7 @@ export const HomePage: React.FC = () => {
     const navigate = useNavigate();
     const query = useQuery();
     const queryCity = query.get(QueryParam.City);
-    const hotels = useHotels(queryCity);
+    const hotels = useHotelsFilter(queryCity);
     const hotelsFetchStatus = useSelector(selectHotelsFetchStatus);
 
     const activeCity = useMemo(() => {

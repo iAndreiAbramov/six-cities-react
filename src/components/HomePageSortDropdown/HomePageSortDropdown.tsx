@@ -1,23 +1,29 @@
-import { SortOption } from 'constants/SortOptions';
-
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
+import { useCloseByClick } from 'hooks/useCloseByClick';
+import { useCloseByEsc } from 'hooks/useCloseByEsc';
+import { useSortDisplayName } from 'hooks/useSortDisplayName';
+import { ISortOption, SortOption, SortOptionQuery } from 'types/sort-options.types';
 
 interface IHomePageSortDropdownProps {
-    options: SortOption[];
+    options: ISortOption[];
     currentSort: string | null;
+    handleSortChange: (value: SortOptionQuery) => void;
 }
 
 export const HomePageSortDropdown: React.FC<IHomePageSortDropdownProps> = ({
     options,
     currentSort,
+    handleSortChange,
 }) => {
     const [isDropDownActive, setIsDropDownActive] = useState(false);
+    const currentSortDisplayName = useSortDisplayName(currentSort);
+
+    useCloseByClick({ isShown: isDropDownActive, cb: () => setIsDropDownActive(false) });
+    useCloseByEsc({ isShown: isDropDownActive, cb: () => setIsDropDownActive(false) });
 
     const handleDropDownToggle = useCallback(() => {
         setIsDropDownActive((current) => !current);
     }, []);
-
-    const sortOption = useMemo(() => currentSort || SortOption.Popular, [currentSort]);
 
     return (
         <form className="places__sorting" action="#" method="get">
@@ -27,10 +33,10 @@ export const HomePageSortDropdown: React.FC<IHomePageSortDropdownProps> = ({
             <span
                 className="places__sorting-type"
                 tabIndex={0}
-                onClick={handleDropDownToggle}
                 style={{ userSelect: 'none' }}
+                onClick={handleDropDownToggle}
             >
-                {sortOption}
+                {currentSortDisplayName || SortOption.Popular}
                 <svg
                     className="places__sorting-arrow"
                     width="7"
@@ -48,13 +54,14 @@ export const HomePageSortDropdown: React.FC<IHomePageSortDropdownProps> = ({
             </span>
             {isDropDownActive && (
                 <ul className="places__options places__options--custom places__options--opened">
-                    {options.map((option) => (
+                    {options.map(({ displayName, queryName }) => (
                         <li
                             className="places__option places__option--active"
                             tabIndex={0}
-                            key={option}
+                            key={queryName}
+                            onClick={() => handleSortChange(queryName)}
                         >
-                            {option}
+                            {displayName}
                         </li>
                     ))}
                 </ul>

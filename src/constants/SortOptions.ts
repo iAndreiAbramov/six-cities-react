@@ -1,13 +1,20 @@
-export enum SortOption {
-    Popular = 'Popular',
-    PriceAscend = 'Price: low to high',
-    PriceDescend = 'Price: high to low',
-    RatingDescend = 'Top rated first',
-}
+import { ISortOption, SortOption, SortOptionQuery } from 'types/sort-options.types';
 
-export const sortOptions = [
-    SortOption.Popular,
-    SortOption.PriceAscend,
-    SortOption.PriceDescend,
-    SortOption.RatingDescend,
+export const sortOptions: ISortOption[] = [
+    {
+        displayName: SortOption.Popular,
+        queryName: SortOptionQuery.Popular,
+    },
+    {
+        displayName: SortOption.PriceAscend,
+        queryName: SortOptionQuery.PriceAscend,
+    },
+    {
+        displayName: SortOption.PriceDescend,
+        queryName: SortOptionQuery.PriceDescend,
+    },
+    {
+        displayName: SortOption.RatingDescend,
+        queryName: SortOptionQuery.RatingDescend,
+    },
 ];
