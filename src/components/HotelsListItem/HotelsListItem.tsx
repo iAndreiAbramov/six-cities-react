@@ -12,6 +12,7 @@ interface IHotelsListItemProps {
     title: string;
     price: number;
     previewImage: string;
+    handleActiveHotelIdChange: (hotelId: number) => void;
 }
 
 export const HotelsListItem: React.FC<IHotelsListItemProps> = ({
@@ -22,9 +23,13 @@ export const HotelsListItem: React.FC<IHotelsListItemProps> = ({
     rating,
     isPremium,
     type,
+    handleActiveHotelIdChange,
 }) => {
     return (
-        <article className="cities__place-card place-card">
+        <article
+            className="cities__place-card place-card"
+            onMouseEnter={() => handleActiveHotelIdChange(id)}
+        >
             {isPremium && (
                 <div className="place-card__mark">
                     <span>Premium</span>

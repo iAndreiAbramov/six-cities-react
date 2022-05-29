@@ -15,9 +15,14 @@ import { HotelsListItem } from 'components/HotelsListItem';
 interface IHotelsListProps {
     hotels: IHotelFront[];
     activeCity: string;
+    handleActiveHotelIdChange: (hotelId: number) => void;
 }
 
-export const HotelsList: React.FC<IHotelsListProps> = ({ hotels, activeCity }) => {
+export const HotelsList: React.FC<IHotelsListProps> = ({
+    hotels,
+    activeCity,
+    handleActiveHotelIdChange,
+}) => {
     const query = useQuery();
     const navigate = useNavigate();
     const [currentSort, setCurrentSort] = useState(query.get(QueryParam.Sort));
@@ -56,6 +61,7 @@ export const HotelsList: React.FC<IHotelsListProps> = ({ hotels, activeCity }) =
                         title={title}
                         price={price}
                         previewImage={previewImage}
+                        handleActiveHotelIdChange={handleActiveHotelIdChange}
                     />
                 ))}
             </div>

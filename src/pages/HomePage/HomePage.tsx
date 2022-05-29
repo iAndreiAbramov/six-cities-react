@@ -3,7 +3,7 @@ import { CityName } from 'constants/Cities';
 import { FetchStatus } from 'constants/FetchStatus';
 import { QueryParam } from 'constants/QueryParam';
 
-import React, { useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useHotelsFilter } from 'hooks/useHotelsFilter';
@@ -27,13 +27,37 @@ export const HomePage: React.FC = () => {
     const queryCity = query.get(QueryParam.City);
     const hotels = useHotelsFilter(queryCity);
     const hotelsFetchStatus = useSelector(selectHotelsFetchStatus);
+    const [activeHotelId, setActiveHotelId] = useState(1);
 
-    const activeCity = useMemo(() => {
+    const activeCityName = useMemo(() => {
         if (!queryCity) {
             return '';
         }
         return queryCity.replace(/^\S/i, (match) => match.toUpperCase());
     }, [queryCity]);
+
+    const pointsForMap = useMemo(() => {
+        return hotels.map(({ id, location }) => {
+            return { id, latitude: location.latitude, longitude: location.longitude };
+        });
+    }, [hotels]);
+
+    const cityLocation = useMemo(() => {
+        if (hotels.length === 0) {
+            return {};
+        }
+
+        const [{ city }] = hotels;
+        return {
+            latitude: city.location.latitude,
+            longitude: city.location.longitude,
+            zoom: city.location.zoom,
+        };
+    }, [hotels]);
+
+    const handleActiveHotelIdChange = useCallback((hotelId: number) => {
+        setActiveHotelId(hotelId);
+    }, []);
 
     useEffect(() => {
         if (!query.get(QueryParam.City)) {
@@ -69,11 +93,19 @@ export const HomePage: React.FC = () => {
                     <div className="cities">
                         <div className="cities__places-container container">
                             {hotels.length === 0 && hotelsFetchStatus === FetchStatus.Done ? (
-                                <HomePageNoContent activeCity={activeCity} />
+                                <HomePageNoContent activeCity={activeCityName} />
                             ) : (
                                 <>
-                                    <HotelsList hotels={hotels} activeCity={activeCity} />
-                                    <HomePageMap />
+                                    <HotelsList
+                                        hotels={hotels}
+                                        activeCity={activeCityName}
+                                        handleActiveHotelIdChange={handleActiveHotelIdChange}
+                                    />
+                                    <HomePageMap
+                                        pointsForMap={pointsForMap}
+                                        activeHotelId={activeHotelId}
+                                        cityLocation={cityLocation}
+                                    />
                                 </>
                             )}
                         </div>

@@ -9,6 +9,8 @@ import { RootReducerTypes, store } from './store/store';
 import { requestLoginCheckThunkAction } from './store/thunk-actions/login-thunk-actions';
 import reportWebVitals from './reportWebVitals';
 
+import 'leaflet/dist/leaflet.css';
+
 void (store.dispatch as ThunkDispatch<RootReducerTypes, unknown, Action>)(
     requestLoginCheckThunkAction(),
 );
