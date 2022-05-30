@@ -23,3 +23,15 @@ export interface ICommentGetFront {
         name: string;
     };
 }
+
+export type RatingType = 1 | 2 | 3 | 4 | 5;
+
+export interface IReviewFormValues {
+    rating: RatingType;
+    comment: string;
+}
+
+export interface ICommentPost {
+    comment: string;
+    rating: 1 | 2 | 3 | 4 | 5;
+}

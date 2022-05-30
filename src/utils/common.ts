@@ -1,6 +1,5 @@
 import { MAX_REVIEWS_NUMBER, months } from 'constants/common';
-
-import { ICommentGetFront } from 'types/comment.types';
+import { ICommentGetFront, RatingType } from 'types/comment.types';
 
 export const getDateForComment = (date: string): string => {
     const parsedDate = new Date(date);
@@ -30,4 +29,19 @@ export const getPreparedComments = (comments: ICommentGetFront[]): ICommentGetFr
             return Date.parse(a.date) - Date.parse(b.date);
         })
         .slice(0, MAX_REVIEWS_NUMBER);
+};
+
+export const getRatingTitle = (value: RatingType): string => {
+    switch (value) {
+        case 5:
+            return 'perfect';
+        case 4:
+            return 'good';
+        case 3:
+            return 'not so bad';
+        case 2:
+            return 'badly';
+        case 1:
+            return 'terribly';
+    }
 };
