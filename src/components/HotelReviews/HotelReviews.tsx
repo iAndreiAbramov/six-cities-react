@@ -1,16 +1,23 @@
-import React from 'react';
+import { MAX_RATING } from 'constants/common';
+
+import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { selectComments } from 'store/selectors/hotel-selectors';
 
+import { getDateForComment, getDateTimeForComment, getPreparedComments } from 'utils/common';
+
 export const HotelReviews: React.FC = () => {
     const commentsData = useSelector(selectComments);
+
+    const preparedComments = useMemo(() => getPreparedComments(commentsData), [commentsData]);
 
     return (
         <section className="property__reviews reviews">
             <h2 className="reviews__title">
                 {commentsData.length > 0 ? (
                     <>
-                        Reviews &middot; <span className="reviews__amount">1</span>
+                        Reviews &middot;
+                        <span className="reviews__amount">{commentsData.length}</span>
                     </>
                 ) : (
                     <>There is no reviews yet</>
@@ -19,36 +26,41 @@ export const HotelReviews: React.FC = () => {
             {commentsData?.length > 0 && (
                 <>
                     <ul className="reviews__list">
-                        <li className="reviews__item">
-                            <div className="reviews__user user">
-                                <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                                    <img
-                                        className="reviews__avatar user__avatar"
-                                        src="/img/avatar-max.jpg"
-                                        width="54"
-                                        height="54"
-                                        alt="Reviews avatar"
-                                    />
-                                </div>
-                                <span className="reviews__user-name">Max</span>
-                            </div>
-                            <div className="reviews__info">
-                                <div className="reviews__rating rating">
-                                    <div className="reviews__stars rating__stars">
-                                        <span style={{ width: '80%' }} />
-                                        <span className="visually-hidden">Rating</span>
+                        {preparedComments.map(({ user, rating, comment, id, date }) => (
+                            <li className="reviews__item" key={id}>
+                                <div className="reviews__user user">
+                                    <div className="reviews__avatar-wrapper user__avatar-wrapper">
+                                        <img
+                                            className="reviews__avatar user__avatar"
+                                            src={user.avatarUrl}
+                                            width="54"
+                                            height="54"
+                                            alt="Reviews avatar"
+                                        />
                                     </div>
+                                    <span className="reviews__user-name">Max</span>
                                 </div>
-                                <p className="reviews__text">
-                                    A quiet cozy and picturesque that hides behind a a river by the
-                                    unique lightness of Amsterdam. The building is green and from
-                                    18th century.
-                                </p>
-                                <time className="reviews__time" dateTime="2019-04-24">
-                                    April 2019
-                                </time>
-                            </div>
-                        </li>
+                                <div className="reviews__info">
+                                    <div className="reviews__rating rating">
+                                        <div className="reviews__stars rating__stars">
+                                            <span
+                                                style={{
+                                                    width: `${Math.round(rating) * MAX_RATING}%`,
+                                                }}
+                                            />
+                                            <span className="visually-hidden">Rating</span>
+                                        </div>
+                                    </div>
+                                    <p className="reviews__text">{comment}</p>
+                                    <time
+                                        className="reviews__time"
+                                        dateTime={getDateTimeForComment(date)}
+                                    >
+                                        {getDateForComment(date)}
+                                    </time>
+                                </div>
+                            </li>
+                        ))}
                     </ul>
                 </>
             )}
@@ -151,7 +163,7 @@ export const HotelReviews: React.FC = () => {
                 />
                 <div className="reviews__button-wrapper">
                     <p className="reviews__help">
-                        To submit review please make sure to set{' '}
+                        To submit review please make sure to set
                         <span className="reviews__star">rating</span> and describe your stay with at
                         least <b className="reviews__text-amount">50 characters</b>.
                     </p>
