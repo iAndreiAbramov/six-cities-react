@@ -1,7 +1,7 @@
-import { FetchStatus } from 'constants/FetchStatus';
-
 import { createSlice } from '@reduxjs/toolkit';
+import { FetchStatus } from 'constants/FetchStatus';
 import {
+    postCommentThunkAction,
     requestCommentsThunkAction,
     requestHotelThunkAction,
 } from 'store/thunk-actions/hotel-thunk-actions';
@@ -15,6 +15,8 @@ export interface IHotelReducer {
     commentsError?: string;
     commentsFetchStatus: FetchStatus;
     commentsData: ICommentGetFront[];
+    commentPostError?: string;
+    commentPostFetchStatus: FetchStatus;
 }
 
 const initialState: IHotelReducer = {
@@ -24,12 +26,19 @@ const initialState: IHotelReducer = {
     commentsError: undefined,
     commentsFetchStatus: FetchStatus.Initial,
     commentsData: [] as ICommentGetFront[],
+    commentPostError: undefined,
+    commentPostFetchStatus: FetchStatus.Initial,
 };
 
 const hotelSlice = createSlice({
     name: 'hotel',
     initialState,
-    reducers: {},
+    reducers: {
+        resetCommentPostStateAction: (state) => {
+            state.commentPostError = undefined;
+            state.commentPostFetchStatus = FetchStatus.Initial;
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(requestHotelThunkAction.pending, (state) => {
@@ -59,8 +68,21 @@ const hotelSlice = createSlice({
                 state.commentsFetchStatus = FetchStatus.Error;
                 state.commentsError = error.message;
                 state.commentsData = [] as ICommentGetFront[];
+            })
+            .addCase(postCommentThunkAction.pending, (state) => {
+                state.commentPostFetchStatus = FetchStatus.Fetching;
+                state.commentPostError = undefined;
+            })
+            .addCase(postCommentThunkAction.fulfilled, (state, { payload }) => {
+                state.commentPostFetchStatus = FetchStatus.Done;
+                state.commentsData = payload;
+            })
+            .addCase(postCommentThunkAction.rejected, (state, { error }) => {
+                state.commentPostFetchStatus = FetchStatus.Error;
+                state.commentPostError = error.message;
             });
     },
 });
 
+export const { resetCommentPostStateAction } = hotelSlice.actions;
 export const hotelReducer = hotelSlice.reducer;

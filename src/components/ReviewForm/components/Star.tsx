@@ -1,6 +1,5 @@
 import React from 'react';
 import { Field } from 'react-final-form';
-import { DEFAULT_CHECKED_RATING } from 'constants/common';
 import { RatingType } from 'types/comment.types';
 
 import { getRatingTitle } from 'utils/common';
@@ -20,7 +19,6 @@ export const Star: React.FC<IStarProps> = ({ value }) => {
                         id={`${value}-stars`}
                         type="radio"
                         value={value}
-                        defaultChecked={value === DEFAULT_CHECKED_RATING}
                     />
                     <label
                         htmlFor={`${value}-stars`}

@@ -1,20 +1,37 @@
 import React, { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { MAX_RATING } from 'constants/common';
-import { selectComments } from 'store/selectors/hotel-selectors';
+import { resetCommentPostStateAction } from 'store/reducers/hotelReducer';
+import { selectCommentPostError, selectComments } from 'store/selectors/hotel-selectors';
+import { selectUserEmail } from 'store/selectors/user-selectors';
+import { useAppDispatch } from 'store/store';
+import { postCommentThunkAction } from 'store/thunk-actions/hotel-thunk-actions';
 import { IReviewFormValues } from 'types/comment.types';
 
 import { ReviewForm } from 'components/ReviewForm';
 import { getDateForComment, getDateTimeForComment, getPreparedComments } from 'utils/common';
 
-export const HotelReviews: React.FC = () => {
+interface IHotelReviewsProps {
+    id: string | null;
+}
+
+export const HotelReviews: React.FC<IHotelReviewsProps> = ({ id }) => {
+    const dispatch = useAppDispatch();
+    const isLoggedIn = !!useSelector(selectUserEmail);
     const commentsData = useSelector(selectComments);
+    const commentPostError = useSelector(selectCommentPostError);
 
     const preparedComments = useMemo(() => getPreparedComments(commentsData), [commentsData]);
 
-    const handleFormSubmit = useCallback((values: IReviewFormValues) => {
-        alert(values);
-    }, []);
+    const handleFormSubmit = useCallback(
+        (values: IReviewFormValues) => {
+            if (id) {
+                dispatch(resetCommentPostStateAction());
+                void dispatch(postCommentThunkAction({ id, body: values }));
+            }
+        },
+        [id, dispatch],
+    );
 
     return (
         <section className="property__reviews reviews">
@@ -50,7 +67,9 @@ export const HotelReviews: React.FC = () => {
                                         <div className="reviews__stars rating__stars">
                                             <span
                                                 style={{
-                                                    width: `${Math.round(rating) * MAX_RATING}%`,
+                                                    width: `${
+                                                        (Math.round(rating) * 100) / MAX_RATING
+                                                    }%`,
                                                 }}
                                             />
                                             <span className="visually-hidden">Rating</span>
@@ -69,8 +88,9 @@ export const HotelReviews: React.FC = () => {
                     </ul>
                 </>
             )}
-
-            <ReviewForm handleFormSubmit={handleFormSubmit} />
+            {isLoggedIn && (
+                <ReviewForm handleFormSubmit={handleFormSubmit} error={commentPostError} />
+            )}
         </section>
     );
 };

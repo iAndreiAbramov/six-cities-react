@@ -1,8 +1,7 @@
-import { MAX_IMAGES_IN_GALLERY } from 'constants/common';
-
 import React, { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { MAX_IMAGES_IN_GALLERY } from 'constants/common';
 import { selectHotelData } from 'store/selectors/hotel-selectors';
 import { useAppDispatch } from 'store/store';
 import {
@@ -70,6 +69,7 @@ export const HotelPage: React.FC = () => {
                             price={price}
                             host={host}
                             description={description}
+                            id={id}
                         />
                         <section className="property__map map" />
                     </section>

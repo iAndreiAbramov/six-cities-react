@@ -1,11 +1,10 @@
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'constants/AppRoute';
 import { CityName } from 'constants/Cities';
 import { FetchStatus } from 'constants/FetchStatus';
 import { QueryParam } from 'constants/QueryParam';
-
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { useHotelsFilter } from 'hooks/useHotelsFilter';
 import { useQuery } from 'hooks/useQuery';
 import { selectHotelsFetchStatus } from 'store/selectors/hotels-selectors';

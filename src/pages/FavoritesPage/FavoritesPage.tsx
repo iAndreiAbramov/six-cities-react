@@ -1,7 +1,6 @@
-import { AppRoute } from 'constants/AppRoute';
-
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { AppRoute } from 'constants/AppRoute';
 
 import { SvgInject } from 'components/SvgInject';
 

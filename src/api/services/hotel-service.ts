@@ -1,12 +1,11 @@
-import { ApiRoute } from 'constants/ApiRoute';
-
 import { api } from 'api/api';
-import { AxiosError } from 'axios';
-import { ICommentGetBack } from 'types/comment.types';
+import { AxiosError, AxiosResponse } from 'axios';
+import { ApiRoute } from 'constants/ApiRoute';
+import { ICommentGetBack, ICommentPost } from 'types/comment.types';
 import { IHotelBack } from 'types/hotel.types';
 
-export const requestHotel = (id: string): Promise<IHotelBack> =>
-    api
+export const requestHotel = async (id: string): Promise<IHotelBack> =>
+    await api
         .get<Promise<IHotelBack>>(ApiRoute.Hotel(id))
         .then((response) => response?.data)
         .catch((error: AxiosError) => {
@@ -16,9 +15,29 @@ export const requestHotel = (id: string): Promise<IHotelBack> =>
             );
         });
 
-export const requestHotelComments = (id: string): Promise<ICommentGetBack[]> =>
-    api
+export const requestHotelComments = async (id: string): Promise<ICommentGetBack[]> =>
+    await api
         .get<Promise<ICommentGetBack[]>>(ApiRoute.Comments(id))
+        .then((response) => response?.data)
+        .catch((error: AxiosError) => {
+            throw new Error(
+                (error?.response?.data as { error: string })?.error ||
+                    'Unknown server error, please try later',
+            );
+        });
+
+export const postComment = async ({
+    id,
+    body,
+}: {
+    id: string;
+    body: ICommentPost;
+}): Promise<ICommentGetBack[]> =>
+    api
+        .post<Promise<ICommentGetBack[]>, AxiosResponse<Promise<ICommentGetBack[]>>>(
+            ApiRoute.Comments(id),
+            body,
+        )
         .then((response) => response?.data)
         .catch((error: AxiosError) => {
             throw new Error(

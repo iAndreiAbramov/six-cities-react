@@ -11,3 +11,7 @@ export const selectHotelData = createSelector([getHotelState], (state) => state.
 // );
 //
 export const selectComments = createSelector([getHotelState], (state) => state.commentsData);
+export const selectCommentPostError = createSelector(
+    [getHotelState],
+    (state) => state.commentPostError,
+);

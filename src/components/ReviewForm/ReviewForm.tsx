@@ -7,15 +7,22 @@ import { validateReviewForm } from './ReviewForm.utils';
 
 interface IReviewFormProps {
     handleFormSubmit: (values: IReviewFormValues) => void;
+    error?: string;
 }
 
-export const ReviewForm: React.FC<IReviewFormProps> = ({ handleFormSubmit }) => {
+export const ReviewForm: React.FC<IReviewFormProps> = ({ handleFormSubmit, error }) => {
     return (
         <Form onSubmit={handleFormSubmit} validate={validateReviewForm}>
-            {({ handleSubmit, submitFailed, hasValidationErrors, dirtySinceLastSubmit }) => (
+            {({
+                handleSubmit,
+                submitFailed,
+                hasValidationErrors,
+                dirtySinceLastSubmit,
+                errors,
+            }) => (
                 <form
                     className={`reviews__form form ${
-                        submitFailed && !dirtySinceLastSubmit ? 'shake' : ''
+                        error || (submitFailed && !dirtySinceLastSubmit) ? 'shake' : ''
                     }`}
                     onSubmit={handleSubmit}
                 >
@@ -60,6 +67,9 @@ export const ReviewForm: React.FC<IReviewFormProps> = ({ handleFormSubmit }) => 
                         >
                             Submit
                         </button>
+                    </div>
+                    <div className="reviews__rating-form-error">
+                        {submitFailed && (errors?.rating || errors?.comment)}
                     </div>
                 </form>
             )}

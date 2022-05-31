@@ -15,6 +15,7 @@ interface IHotelAttributesProps {
     price: number;
     host: IHotelHostFront;
     description: string;
+    id: string | null;
 }
 
 export const HotelAttributes: React.FC<IHotelAttributesProps> = ({
@@ -28,6 +29,7 @@ export const HotelAttributes: React.FC<IHotelAttributesProps> = ({
     price,
     host,
     description,
+    id,
 }) => {
     return (
         <div className="property__container container">
@@ -77,7 +79,7 @@ export const HotelAttributes: React.FC<IHotelAttributesProps> = ({
                     </ul>
                 </div>
                 <HotelHost host={host} description={description} />
-                <HotelReviews />
+                <HotelReviews id={id} />
             </div>
         </div>
     );
