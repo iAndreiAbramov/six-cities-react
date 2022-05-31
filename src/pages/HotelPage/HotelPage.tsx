@@ -42,6 +42,7 @@ export const HotelPage: React.FC = () => {
         host,
         description,
         city,
+        isFavorite,
     } = useSelector(selectHotelData);
     const nearPlaces = useSelector(selectNearby);
     const hotelFetchStatus = useSelector(selectHotelFetchStatus);
@@ -127,6 +128,11 @@ export const HotelPage: React.FC = () => {
                                                     className="property__bookmark-icon"
                                                     width="31"
                                                     height="33"
+                                                    style={
+                                                        isFavorite
+                                                            ? { fill: '#4481c3', stroke: '#4481c3' }
+                                                            : {}
+                                                    }
                                                 >
                                                     <use xlinkHref="#icon-bookmark" />
                                                 </svg>

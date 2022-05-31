@@ -12,6 +12,7 @@ interface IHotelsListItemProps {
     price: number;
     previewImage: string;
     handleActiveHotelIdChange: (hotelId: number) => void;
+    isFavorite: boolean;
 }
 
 export const HotelsListItem: React.FC<IHotelsListItemProps> = ({
@@ -23,6 +24,7 @@ export const HotelsListItem: React.FC<IHotelsListItemProps> = ({
     isPremium,
     type,
     handleActiveHotelIdChange,
+    isFavorite,
 }) => {
     return (
         <article
@@ -52,7 +54,12 @@ export const HotelsListItem: React.FC<IHotelsListItemProps> = ({
                         <span className="place-card__price-text">&#47;&nbsp;night</span>
                     </div>
                     <button className="place-card__bookmark-button button" type="button">
-                        <svg className="place-card__bookmark-icon" width="18" height="19">
+                        <svg
+                            className="place-card__bookmark-icon"
+                            width="18"
+                            height="19"
+                            style={isFavorite ? { fill: '#4481c3', stroke: '#4481c3' } : {}}
+                        >
                             <use xlinkHref="#icon-bookmark" />
                         </svg>
                         <span className="visually-hidden">To bookmarks</span>

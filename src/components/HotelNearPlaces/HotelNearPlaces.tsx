@@ -18,7 +18,16 @@ export const HotelNearPlaces: React.FC<HotelNearPlacesProps> = ({
             <div className="near-places__list places__list">
                 {nearPlaces.length > 0 &&
                     nearPlaces.map(
-                        ({ id, isPremium, rating, type, title, price, previewImage }) => (
+                        ({
+                            id,
+                            isPremium,
+                            rating,
+                            type,
+                            title,
+                            price,
+                            previewImage,
+                            isFavorite,
+                        }) => (
                             <HotelsListItem
                                 key={id}
                                 id={id}
@@ -29,6 +38,7 @@ export const HotelNearPlaces: React.FC<HotelNearPlacesProps> = ({
                                 price={price}
                                 previewImage={previewImage}
                                 handleActiveHotelIdChange={handleActiveHotelIdChange}
+                                isFavorite={isFavorite}
                             />
                         ),
                     )}
