@@ -75,7 +75,7 @@ const hotelSlice = createSlice({
             })
             .addCase(postCommentThunkAction.fulfilled, (state, { payload }) => {
                 state.commentPostFetchStatus = FetchStatus.Done;
-                state.commentsData = payload;
+                state.commentsData = payload || ([] as ICommentGetFront[]);
             })
             .addCase(postCommentThunkAction.rejected, (state, { error }) => {
                 state.commentPostFetchStatus = FetchStatus.Error;

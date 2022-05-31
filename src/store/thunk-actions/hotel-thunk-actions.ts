@@ -1,8 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { postComment, requestHotel, requestHotelComments } from 'api/services/hotel-service';
+import { Notification } from 'constants/Notification';
 import { ICommentPost } from 'types/comment.types';
 
 import { adaptCommentsToFront, adaptHotelToFront } from 'utils/adapters';
+import { notifyError, notifySuccess } from 'utils/toasts';
 
 export const requestHotelThunkAction = createAsyncThunk('hotel/requestHotel', async (id: string) =>
     requestHotel(id).then((data) => adaptHotelToFront(data)),
@@ -15,5 +17,13 @@ export const requestCommentsThunkAction = createAsyncThunk('hotel/comments', asy
 export const postCommentThunkAction = createAsyncThunk(
     'hotel/commentPost',
     async ({ id, body }: { id: string; body: ICommentPost }) =>
-        postComment({ id, body }).then((commentsData) => adaptCommentsToFront(commentsData)),
+        postComment({ id, body })
+            .then((commentsData) => {
+                notifySuccess(Notification.CommentPostSuccess);
+                return adaptCommentsToFront(commentsData);
+            })
+            .catch((error: Error) => {
+                notifyError(Notification.CommentPostError);
+                throw new Error(error.message);
+            }),
 );
