@@ -2,11 +2,12 @@ import React, { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { MAX_IMAGES_IN_GALLERY } from 'constants/common';
-import { selectHotelData } from 'store/selectors/hotel-selectors';
+import { selectHotelData, selectNearby } from 'store/selectors/hotel-selectors';
 import { useAppDispatch } from 'store/store';
 import {
     requestCommentsThunkAction,
     requestHotelThunkAction,
+    requestNearbyThunkAction,
 } from 'store/thunk-actions/hotel-thunk-actions';
 
 import { HotelAttributes } from 'components/HotelAttributes';
@@ -32,6 +33,8 @@ export const HotelPage: React.FC = () => {
         description,
     } = useSelector(selectHotelData);
 
+    const nearPlaces = useSelector(selectNearby);
+
     const offerImages = useMemo(() => {
         if (images?.length === 0) {
             return [];
@@ -47,6 +50,7 @@ export const HotelPage: React.FC = () => {
         if (id) {
             void dispatch(requestHotelThunkAction(id));
             void dispatch(requestCommentsThunkAction(id));
+            void dispatch(requestNearbyThunkAction(id));
         }
     }, [dispatch, id]);
 
@@ -74,7 +78,7 @@ export const HotelPage: React.FC = () => {
                         <section className="property__map map" />
                     </section>
                     <div className="container">
-                        <HotelNearPlaces />
+                        <HotelNearPlaces nearPlaces={nearPlaces} />
                     </div>
                 </main>
             </div>

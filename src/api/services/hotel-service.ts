@@ -45,3 +45,14 @@ export const postComment = async ({
                     'Unknown server error, please try later',
             );
         });
+
+export const requestNearbyHotels = async (id: string): Promise<IHotelBack[]> =>
+    api
+        .get<Promise<IHotelBack[]>>(ApiRoute.Nearby(id))
+        .then((response) => response?.data)
+        .catch((error: AxiosError) => {
+            throw new Error(
+                (error?.response?.data as { error: string })?.error ||
+                    'Unknown server error, please try later',
+            );
+        });

@@ -1,9 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { postComment, requestHotel, requestHotelComments } from 'api/services/hotel-service';
+import {
+    postComment,
+    requestHotel,
+    requestHotelComments,
+    requestNearbyHotels,
+} from 'api/services/hotel-service';
 import { Notification } from 'constants/Notification';
 import { ICommentPost } from 'types/comment.types';
 
-import { adaptCommentsToFront, adaptHotelToFront } from 'utils/adapters';
+import { adaptCommentsToFront, adaptHotelsListToFront, adaptHotelToFront } from 'utils/adapters';
 import { notifyError, notifySuccess } from 'utils/toasts';
 
 export const requestHotelThunkAction = createAsyncThunk('hotel/requestHotel', async (id: string) =>
@@ -26,4 +31,9 @@ export const postCommentThunkAction = createAsyncThunk(
                 notifyError(Notification.CommentPostError);
                 throw new Error(error.message);
             }),
+);
+
+export const requestNearbyThunkAction = createAsyncThunk(
+    'hotel/requestNearby',
+    async (id: string) => requestNearbyHotels(id).then((data) => adaptHotelsListToFront(data)),
 );
