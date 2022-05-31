@@ -1,8 +1,7 @@
-import { AppRoute } from 'constants/AppRoute';
-import { MAX_RATING } from 'constants/common';
-
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { AppRoute } from 'constants/AppRoute';
+import { MAX_RATING } from 'constants/common';
 
 interface IHotelsListItemProps {
     id: number;

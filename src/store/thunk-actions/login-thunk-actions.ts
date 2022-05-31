@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { requestLogin, requestLoginCheck, requestLogout } from 'api/services/loginService';
+import { requestLogin, requestLoginCheck, requestLogout } from 'api/services/login-service';
 import { IUserAuthRequest } from 'types/user-auth.types';
 
 import { adaptUserToFront } from 'utils/adapters';

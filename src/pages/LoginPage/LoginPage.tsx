@@ -1,8 +1,7 @@
-import { AppRoute } from 'constants/AppRoute';
-
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
+import { AppRoute } from 'constants/AppRoute';
 import { selectUserEmail, selectUserError } from 'store/selectors/user-selectors';
 import { useAppDispatch } from 'store/store';
 import { requestLoginThunkAction } from 'store/thunk-actions/login-thunk-actions';

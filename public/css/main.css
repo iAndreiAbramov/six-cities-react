@@ -1559,7 +1559,14 @@ img {
 }
 
 .reviews__rating-form {
-    margin-bottom: 21px
+    margin-bottom: 21px;
+}
+
+.reviews__rating-form-error {
+    color: red;
+    font-size: 12px;
+    line-height: 1;
+    min-height: 14px;
 }
 
 .reviews__button-wrapper {
@@ -1612,7 +1619,7 @@ img {
     justify-content: flex-end;
     -webkit-box-align: start;
     -ms-flex-align: start;
-    align-items: flex-start
+    align-items: center
 }
 
 .form__rating-label {

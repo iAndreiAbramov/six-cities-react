@@ -33,6 +33,13 @@ export interface IHotelBack {
     type: string;
 }
 
+export interface IHotelHostFront {
+    avatarUrl: string;
+    id: number;
+    isPro: boolean;
+    name: string;
+}
+
 export interface IHotelFront {
     bedrooms: number;
     city: {
@@ -45,12 +52,7 @@ export interface IHotelFront {
     };
     description: string;
     goods: string[];
-    host: {
-        avatarUrl: string;
-        id: number;
-        isPro: boolean;
-        name: string;
-    };
+    host: IHotelHostFront;
     id: number;
     images: string[];
     isFavorite: boolean;

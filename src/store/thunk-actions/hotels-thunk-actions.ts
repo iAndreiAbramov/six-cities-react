@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { requestHotelsList } from 'api/services/hotelsService';
+import { requestHotelsList } from 'api/services/hotels-service';
 
 import { adaptHotelsListToFront } from 'utils/adapters';
 

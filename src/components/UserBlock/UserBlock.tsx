@@ -1,8 +1,7 @@
-import { AppRoute } from 'constants/AppRoute';
-
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { AppRoute } from 'constants/AppRoute';
 import { selectUserAvatar, selectUserEmail } from 'store/selectors/user-selectors';
 import { useAppDispatch } from 'store/store';
 import { requestLogoutThunkAction } from 'store/thunk-actions/login-thunk-actions';

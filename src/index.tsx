@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { Action } from 'redux';
 
@@ -10,6 +11,7 @@ import { requestLoginCheckThunkAction } from './store/thunk-actions/login-thunk-
 import reportWebVitals from './reportWebVitals';
 
 import 'leaflet/dist/leaflet.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 void (store.dispatch as ThunkDispatch<RootReducerTypes, unknown, Action>)(
     requestLoginCheckThunkAction(),
@@ -18,6 +20,7 @@ void (store.dispatch as ThunkDispatch<RootReducerTypes, unknown, Action>)(
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
+            <ToastContainer />
             <App />
         </Provider>
     </React.StrictMode>,

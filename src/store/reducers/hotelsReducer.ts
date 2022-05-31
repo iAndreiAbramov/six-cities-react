@@ -1,6 +1,5 @@
-import { FetchStatus } from 'constants/FetchStatus';
-
 import { createSlice } from '@reduxjs/toolkit';
+import { FetchStatus } from 'constants/FetchStatus';
 import { requestHotelsThunkAction } from 'store/thunk-actions/hotels-thunk-actions';
 import { IHotelFront } from 'types/hotel.types';
 

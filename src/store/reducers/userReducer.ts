@@ -1,6 +1,5 @@
-import { FetchStatus } from 'constants/FetchStatus';
-
 import { createSlice } from '@reduxjs/toolkit';
+import { FetchStatus } from 'constants/FetchStatus';
 import {
     requestLoginCheckThunkAction,
     requestLoginThunkAction,

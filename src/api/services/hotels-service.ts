@@ -1,7 +1,6 @@
-import { ApiRoute } from 'constants/ApiRoute';
-
 import { api } from 'api/api';
 import { AxiosError } from 'axios';
+import { ApiRoute } from 'constants/ApiRoute';
 import { IHotelBack } from 'types/hotel.types';
 
 export const requestHotelsList = async (): Promise<IHotelBack[]> =>

@@ -1,9 +1,8 @@
+import React, { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'constants/AppRoute';
 import { QueryParam } from 'constants/QueryParam';
 import { sortOptions } from 'constants/SortOptions';
-
-import React, { useCallback, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useHotelsSort } from 'hooks/useHotelsSort';
 import { useQuery } from 'hooks/useQuery';
 import { IHotelFront } from 'types/hotel.types';

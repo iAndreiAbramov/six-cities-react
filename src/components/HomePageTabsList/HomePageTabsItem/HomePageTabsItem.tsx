@@ -1,6 +1,5 @@
-import { CityName } from 'constants/Cities';
-
 import React from 'react';
+import { CityName } from 'constants/Cities';
 
 interface ITabItem {
     name: CityName;

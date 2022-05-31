@@ -1,9 +1,8 @@
+import React, { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'constants/AppRoute';
 import { Cities, CityName } from 'constants/Cities';
 import { QueryParam } from 'constants/QueryParam';
-
-import React, { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'hooks/useQuery';
 
 import { HomePageTabsItem } from './HomePageTabsItem';

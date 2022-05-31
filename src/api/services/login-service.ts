@@ -1,7 +1,6 @@
-import { ApiRoute } from 'constants/ApiRoute';
-
 import { api } from 'api/api';
 import { AxiosError, AxiosResponse } from 'axios';
+import { ApiRoute } from 'constants/ApiRoute';
 import { IUserAuthRequest, IUserAuthResponse } from 'types/user-auth.types';
 
 export const requestLogin = async (authInfo: IUserAuthRequest): Promise<IUserAuthResponse> =>
