@@ -4,10 +4,14 @@ import { IHotelFront } from 'types/hotel.types';
 import { HotelsListItem } from 'components/HotelsListItem';
 
 interface HotelNearPlacesProps {
+    handleActiveHotelIdChange: (hotelId: number) => void;
     nearPlaces: IHotelFront[];
 }
 
-export const HotelNearPlaces: React.FC<HotelNearPlacesProps> = ({ nearPlaces }) => {
+export const HotelNearPlaces: React.FC<HotelNearPlacesProps> = ({
+    nearPlaces,
+    handleActiveHotelIdChange,
+}) => {
     return (
         <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
@@ -24,7 +28,7 @@ export const HotelNearPlaces: React.FC<HotelNearPlacesProps> = ({ nearPlaces }) 
                                 title={title}
                                 price={price}
                                 previewImage={previewImage}
-                                handleActiveHotelIdChange={() => null}
+                                handleActiveHotelIdChange={handleActiveHotelIdChange}
                             />
                         ),
                     )}

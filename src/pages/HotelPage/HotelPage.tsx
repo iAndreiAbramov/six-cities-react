@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { MAX_IMAGES_IN_GALLERY } from 'constants/common';
@@ -13,6 +13,7 @@ import {
 import { HotelAttributes } from 'components/HotelAttributes';
 import { HotelImageGallery } from 'components/HotelImageGallery';
 import { HotelNearPlaces } from 'components/HotelNearPlaces';
+import { Map } from 'components/Map';
 import { PageHeader } from 'components/PageHeader';
 import { SvgInject } from 'components/SvgInject';
 
@@ -31,9 +32,14 @@ export const HotelPage: React.FC = () => {
         goods,
         host,
         description,
+        city,
     } = useSelector(selectHotelData);
-
     const nearPlaces = useSelector(selectNearby);
+    const [activeHotelId, setActiveHotelId] = useState<number | null>(null);
+
+    const handleActiveHotelIdChange = useCallback((hotelId: number) => {
+        setActiveHotelId(hotelId);
+    }, []);
 
     const offerImages = useMemo(() => {
         if (images?.length === 0) {
@@ -45,6 +51,20 @@ export const HotelPage: React.FC = () => {
 
         return images;
     }, [images]);
+
+    const pointsForMap = useMemo(() => {
+        return nearPlaces.map(({ id, location }) => {
+            return { id, latitude: location.latitude, longitude: location.longitude };
+        });
+    }, [nearPlaces]);
+
+    const cityLocation = useMemo(() => {
+        return {
+            latitude: city?.location?.latitude,
+            longitude: city?.location?.longitude,
+            zoom: city?.location?.zoom,
+        };
+    }, [city]);
 
     useEffect(() => {
         if (id) {
@@ -75,10 +95,17 @@ export const HotelPage: React.FC = () => {
                             description={description}
                             id={id}
                         />
-                        <section className="property__map map" />
+                        <Map
+                            pointsForMap={pointsForMap}
+                            cityLocation={cityLocation}
+                            activeHotelId={activeHotelId}
+                        />
                     </section>
                     <div className="container">
-                        <HotelNearPlaces nearPlaces={nearPlaces} />
+                        <HotelNearPlaces
+                            nearPlaces={nearPlaces}
+                            handleActiveHotelIdChange={handleActiveHotelIdChange}
+                        />
                     </div>
                 </main>
             </div>

@@ -12,10 +12,10 @@ import { useAppDispatch } from 'store/store';
 import { requestHotelsThunkAction } from 'store/thunk-actions/hotels-thunk-actions';
 import { SortOption } from 'types/sort-options.types';
 
-import { HomePageMap } from 'components/HomePageMap';
 import { HomePageNoContent } from 'components/HomePageNoContent';
 import { HomePageTabsList } from 'components/HomePageTabsList';
 import { HotelsList } from 'components/HotelsList';
+import { Map } from 'components/Map';
 import { PageHeader } from 'components/PageHeader';
 import { SvgInject } from 'components/SvgInject';
 
@@ -26,7 +26,7 @@ export const HomePage: React.FC = () => {
     const queryCity = query.get(QueryParam.City);
     const hotels = useHotelsFilter(queryCity);
     const hotelsFetchStatus = useSelector(selectHotelsFetchStatus);
-    const [activeHotelId, setActiveHotelId] = useState(1);
+    const [activeHotelId, setActiveHotelId] = useState<number | null>(null);
 
     const activeCityName = useMemo(() => {
         if (!queryCity) {
@@ -100,11 +100,13 @@ export const HomePage: React.FC = () => {
                                         activeCity={activeCityName}
                                         handleActiveHotelIdChange={handleActiveHotelIdChange}
                                     />
-                                    <HomePageMap
-                                        pointsForMap={pointsForMap}
-                                        activeHotelId={activeHotelId}
-                                        cityLocation={cityLocation}
-                                    />
+                                    <div className="cities__right-section">
+                                        <Map
+                                            pointsForMap={pointsForMap}
+                                            activeHotelId={activeHotelId}
+                                            cityLocation={cityLocation}
+                                        />
+                                    </div>
                                 </>
                             )}
                         </div>

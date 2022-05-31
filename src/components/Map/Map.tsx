@@ -1,24 +1,22 @@
 import React, { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useMap } from 'hooks/useMap';
 import { Marker } from 'leaflet';
 import { ICityLocation, IPoint } from 'types/map-types';
 
-import { ACTIVE_CUSTOM_ICON, DEFAULT_CUSTOM_ICON } from './HomePageMap.constants';
+import { ACTIVE_CUSTOM_ICON, DEFAULT_CUSTOM_ICON } from './Map.constants';
 
-interface IHomePageProps {
+interface IHomePageMapProps {
     pointsForMap: IPoint[];
     cityLocation: ICityLocation;
     activeHotelId: number | null;
 }
 
-export const HomePageMap: React.FC<IHomePageProps> = ({
-    pointsForMap,
-    cityLocation,
-    activeHotelId,
-}) => {
+export const Map: React.FC<IHomePageMapProps> = ({ pointsForMap, cityLocation, activeHotelId }) => {
     const mapRef = useRef(null);
     const map = useMap(mapRef, cityLocation);
     const markers: Marker[] = [];
+    const { pathname } = useLocation();
 
     useEffect(() => {
         if (map) {
@@ -42,8 +40,9 @@ export const HomePageMap: React.FC<IHomePageProps> = ({
     });
 
     return (
-        <div className="cities__right-section">
-            <section className="cities__map map" ref={mapRef} />
-        </div>
+        <section
+            className={`map ${pathname === '/' ? 'cities__map' : 'property__map'} `}
+            ref={mapRef}
+        />
     );
 };
