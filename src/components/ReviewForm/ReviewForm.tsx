@@ -1,5 +1,6 @@
 import React from 'react';
 import { Field, Form } from 'react-final-form';
+import { FetchStatus } from 'constants/FetchStatus';
 import { IReviewFormValues } from 'types/comment.types';
 
 import { Star } from './components';
@@ -7,10 +8,15 @@ import { validateReviewForm } from './ReviewForm.utils';
 
 interface IReviewFormProps {
     handleFormSubmit: (values: IReviewFormValues) => void;
+    commentPostStatus: FetchStatus;
     error?: string;
 }
 
-export const ReviewForm: React.FC<IReviewFormProps> = ({ handleFormSubmit, error }) => {
+export const ReviewForm: React.FC<IReviewFormProps> = ({
+    handleFormSubmit,
+    error,
+    commentPostStatus,
+}) => {
     return (
         <Form onSubmit={handleFormSubmit} validate={validateReviewForm}>
             {({
@@ -19,12 +25,19 @@ export const ReviewForm: React.FC<IReviewFormProps> = ({ handleFormSubmit, error
                 hasValidationErrors,
                 dirtySinceLastSubmit,
                 errors,
+                form,
             }) => (
                 <form
                     className={`reviews__form form ${
                         error || (submitFailed && !dirtySinceLastSubmit) ? 'shake' : ''
                     }`}
-                    onSubmit={handleSubmit}
+                    onSubmit={async (evt) => {
+                        await handleSubmit(evt)?.then(() => {
+                            form.reset();
+                            form.resetFieldState('rating');
+                            form.resetFieldState('comment');
+                        });
+                    }}
                 >
                     <label className="reviews__label form__label" htmlFor="comment">
                         Your review
@@ -62,7 +75,10 @@ export const ReviewForm: React.FC<IReviewFormProps> = ({ handleFormSubmit, error
                         <button
                             className="reviews__submit form__submit button"
                             type="submit"
-                            disabled={hasValidationErrors && submitFailed}
+                            disabled={
+                                commentPostStatus === FetchStatus.Fetching ||
+                                (hasValidationErrors && submitFailed)
+                            }
                             style={hasValidationErrors && submitFailed ? { cursor: 'default' } : {}}
                         >
                             Submit

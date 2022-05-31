@@ -16,6 +16,11 @@ export const selectCommentsFetchStatus = createSelector(
     (state) => state.commentsFetchStatus,
 );
 
+export const selectCommentPostStatus = createSelector(
+    [getHotelState],
+    (state) => state.commentPostStatus,
+);
+
 export const selectNearbyFetchStatus = createSelector(
     [getHotelState],
     (state) => state.nearbyFetchStatus,

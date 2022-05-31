@@ -2,7 +2,11 @@ import React, { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { MAX_RATING } from 'constants/common';
 import { resetCommentPostStateAction } from 'store/reducers/hotelReducer';
-import { selectCommentPostError, selectComments } from 'store/selectors/hotel-selectors';
+import {
+    selectCommentPostError,
+    selectCommentPostStatus,
+    selectComments,
+} from 'store/selectors/hotel-selectors';
 import { selectUserEmail } from 'store/selectors/user-selectors';
 import { useAppDispatch } from 'store/store';
 import { postCommentThunkAction } from 'store/thunk-actions/hotel-thunk-actions';
@@ -20,14 +24,15 @@ export const HotelReviews: React.FC<IHotelReviewsProps> = ({ id }) => {
     const isLoggedIn = !!useSelector(selectUserEmail);
     const commentsData = useSelector(selectComments);
     const commentPostError = useSelector(selectCommentPostError);
+    const commentPostStatus = useSelector(selectCommentPostStatus);
 
     const preparedComments = useMemo(() => getPreparedComments(commentsData), [commentsData]);
 
     const handleFormSubmit = useCallback(
-        (values: IReviewFormValues) => {
+        async (values: IReviewFormValues) => {
             if (id) {
                 dispatch(resetCommentPostStateAction());
-                void dispatch(postCommentThunkAction({ id, body: values }));
+                return dispatch(postCommentThunkAction({ id, body: values }));
             }
         },
         [id, dispatch],
@@ -89,7 +94,11 @@ export const HotelReviews: React.FC<IHotelReviewsProps> = ({ id }) => {
                 </>
             )}
             {isLoggedIn && (
-                <ReviewForm handleFormSubmit={handleFormSubmit} error={commentPostError} />
+                <ReviewForm
+                    handleFormSubmit={handleFormSubmit}
+                    error={commentPostError}
+                    commentPostStatus={commentPostStatus}
+                />
             )}
         </section>
     );

@@ -33,7 +33,7 @@ export const postComment = async ({
     id: string;
     body: ICommentPost;
 }): Promise<ICommentGetBack[]> =>
-    api
+    await api
         .post<Promise<ICommentGetBack[]>, AxiosResponse<Promise<ICommentGetBack[]>>>(
             ApiRoute.Comments(id),
             body,
@@ -47,7 +47,7 @@ export const postComment = async ({
         });
 
 export const requestNearbyHotels = async (id: string): Promise<IHotelBack[]> =>
-    api
+    await api
         .get<Promise<IHotelBack[]>>(ApiRoute.Nearby(id))
         .then((response) => response?.data)
         .catch((error: AxiosError) => {

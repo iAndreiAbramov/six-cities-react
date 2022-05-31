@@ -1,1 +1,0 @@
-export { HotelAttributes } from './HotelAttributes';

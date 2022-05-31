@@ -17,7 +17,7 @@ export interface IHotelReducer {
     commentsFetchStatus: FetchStatus;
     commentsData: ICommentGetFront[];
     commentPostError?: string;
-    commentPostFetchStatus: FetchStatus;
+    commentPostStatus: FetchStatus;
     nearbyError?: string;
     nearbyFetchStatus: FetchStatus;
     nearbyData: IHotelFront[];
@@ -31,7 +31,7 @@ const initialState: IHotelReducer = {
     commentsFetchStatus: FetchStatus.Initial,
     commentsData: [] as ICommentGetFront[],
     commentPostError: undefined,
-    commentPostFetchStatus: FetchStatus.Initial,
+    commentPostStatus: FetchStatus.Initial,
     nearbyError: undefined,
     nearbyFetchStatus: FetchStatus.Initial,
     nearbyData: [] as IHotelFront[],
@@ -43,7 +43,7 @@ const hotelSlice = createSlice({
     reducers: {
         resetCommentPostStateAction: (state) => {
             state.commentPostError = undefined;
-            state.commentPostFetchStatus = FetchStatus.Initial;
+            state.commentPostStatus = FetchStatus.Initial;
         },
     },
     extraReducers: (builder) => {
@@ -77,15 +77,15 @@ const hotelSlice = createSlice({
                 state.commentsData = [] as ICommentGetFront[];
             })
             .addCase(postCommentThunkAction.pending, (state) => {
-                state.commentPostFetchStatus = FetchStatus.Fetching;
+                state.commentPostStatus = FetchStatus.Fetching;
                 state.commentPostError = undefined;
             })
             .addCase(postCommentThunkAction.fulfilled, (state, { payload }) => {
-                state.commentPostFetchStatus = FetchStatus.Done;
+                state.commentPostStatus = FetchStatus.Done;
                 state.commentsData = payload || ([] as ICommentGetFront[]);
             })
             .addCase(postCommentThunkAction.rejected, (state, { error }) => {
-                state.commentPostFetchStatus = FetchStatus.Error;
+                state.commentPostStatus = FetchStatus.Error;
                 state.commentPostError = error.message;
             })
             .addCase(requestNearbyThunkAction.pending, (state) => {
