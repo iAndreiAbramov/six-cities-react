@@ -5,7 +5,7 @@ import { MAX_RATING } from 'constants/common';
 
 import { ButtonBookmark } from 'components/ButtonBookmark';
 
-interface IHotelsListItemProps {
+interface IHotelsListCardProps {
     id: number;
     isPremium: boolean;
     rating: number;
@@ -17,7 +17,7 @@ interface IHotelsListItemProps {
     isFavorite: boolean;
 }
 
-export const HotelsListItem: React.FC<IHotelsListItemProps> = ({
+export const HotelsListCard: React.FC<IHotelsListCardProps> = ({
     id,
     previewImage,
     title,

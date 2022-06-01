@@ -9,7 +9,7 @@ import { IHotelFront } from 'types/hotel.types';
 import { SortOptionQuery } from 'types/sort-options.types';
 
 import { HomePageSortDropdown } from 'components/HomePageSortDropdown';
-import { HotelsListItem } from 'components/HotelsListItem';
+import { HotelsListCard } from 'components/HotelsListCard';
 
 interface IHotelsListProps {
     hotels: IHotelFront[];
@@ -52,7 +52,7 @@ export const HotelsList: React.FC<IHotelsListProps> = ({
             <div className="cities__places-list places__list tabs__content">
                 {sortedHotels.map(
                     ({ id, isPremium, rating, type, title, price, previewImage, isFavorite }) => (
-                        <HotelsListItem
+                        <HotelsListCard
                             key={id}
                             id={id}
                             isPremium={isPremium}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { IHotelFront } from 'types/hotel.types';
 
-import { HotelsListItem } from 'components/HotelsListItem';
+import { HotelsListCard } from 'components/HotelsListCard';
 
 interface HotelNearPlacesProps {
     handleActiveHotelIdChange: (hotelId: number) => void;
@@ -28,7 +28,7 @@ export const HotelNearPlaces: React.FC<HotelNearPlacesProps> = ({
                             previewImage,
                             isFavorite,
                         }) => (
-                            <HotelsListItem
+                            <HotelsListCard
                                 key={id}
                                 id={id}
                                 isPremium={isPremium}
