@@ -7,5 +7,5 @@ const getHotelsState = (state: RootReducerTypes): IHotelsReducer => state.hotels
 export const selectHotels = createSelector([getHotelsState], (hotels) => hotels.hotelsData);
 export const selectHotelsFetchStatus = createSelector(
     [getHotelsState],
-    (hotels) => hotels.fetchStatus,
+    (hotels) => hotels.hotelsFetchStatus,
 );
