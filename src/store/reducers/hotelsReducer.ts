@@ -80,17 +80,15 @@ const hotelsSlice = createSlice({
                     state.hotelsData = [
                         ...state.hotelsData.slice(0, storedHotelItemIndex),
                         payload,
-                        ...state.hotelsData.slice(storedHotelItemIndex),
+                        ...state.hotelsData.slice(storedHotelItemIndex + 1),
                     ];
-                } else {
-                    state.hotelsData.push(payload);
                 }
 
                 if (storedFavoriteItemIndex !== -1) {
                     state.favoritesData = [
                         ...state.favoritesData.slice(0, storedHotelItemIndex),
                         payload,
-                        ...state.favoritesData.slice(storedHotelItemIndex),
+                        ...state.favoritesData.slice(storedHotelItemIndex + 1),
                     ];
                 } else {
                     state.favoritesData.push(payload);

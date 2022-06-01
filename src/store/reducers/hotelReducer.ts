@@ -114,6 +114,18 @@ const hotelSlice = createSlice({
             .addCase(postFavoriteThunkAction.fulfilled, (state, { payload }) => {
                 state.favoritesPostFetchStatus = FetchStatus.Done;
                 state.hotelData.isFavorite = payload.isFavorite;
+
+                const nearbyStoredItemIndex = state.nearbyData.findIndex(
+                    (item) => item.id === payload.id,
+                );
+
+                if (nearbyStoredItemIndex !== -1) {
+                    state.nearbyData = [
+                        ...state.nearbyData.slice(0, nearbyStoredItemIndex),
+                        payload,
+                        ...state.nearbyData.slice(nearbyStoredItemIndex + 1),
+                    ];
+                }
             })
             .addCase(postFavoriteThunkAction.rejected, (state, { error }) => {
                 state.favoritesPostFetchStatus = FetchStatus.Error;

@@ -17,6 +17,7 @@ import {
     requestNearbyThunkAction,
 } from 'store/thunk-actions/hotel-thunk-actions';
 
+import { ButtonBookmark } from 'components/ButtonBookmark';
 import { HotelHost } from 'components/HotelHost';
 import { HotelImageGallery } from 'components/HotelImageGallery';
 import { HotelNearPlaces } from 'components/HotelNearPlaces';
@@ -120,26 +121,14 @@ export const HotelPage: React.FC = () => {
                                         )}
                                         <div className="property__name-wrapper">
                                             <h1 className="property__name">{title}</h1>
-                                            <button
-                                                className="property__bookmark-button button"
-                                                type="button"
-                                            >
-                                                <svg
-                                                    className="property__bookmark-icon"
-                                                    width="31"
-                                                    height="33"
-                                                    style={
-                                                        isFavorite
-                                                            ? { fill: '#4481c3', stroke: '#4481c3' }
-                                                            : {}
-                                                    }
-                                                >
-                                                    <use xlinkHref="#icon-bookmark" />
-                                                </svg>
-                                                <span className="visually-hidden">
-                                                    To bookmarks
-                                                </span>
-                                            </button>
+                                            <ButtonBookmark
+                                                width={31}
+                                                height={33}
+                                                isFavorite={isFavorite}
+                                                customClassName="property__bookmark-button"
+                                                svgClassName="property__bookmark-icon"
+                                                hotelId={id}
+                                            />
                                         </div>
                                         <div className="property__rating rating">
                                             <div className="property__stars rating__stars">

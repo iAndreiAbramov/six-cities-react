@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from 'constants/AppRoute';
 import { MAX_RATING } from 'constants/common';
 
+import { ButtonBookmark } from 'components/ButtonBookmark';
+
 interface IHotelsListItemProps {
     id: number;
     isPremium: boolean;
@@ -53,17 +55,14 @@ export const HotelsListItem: React.FC<IHotelsListItemProps> = ({
                         <b className="place-card__price-value">&euro;{price}</b>
                         <span className="place-card__price-text">&#47;&nbsp;night</span>
                     </div>
-                    <button className="place-card__bookmark-button button" type="button">
-                        <svg
-                            className="place-card__bookmark-icon"
-                            width="18"
-                            height="19"
-                            style={isFavorite ? { fill: '#4481c3', stroke: '#4481c3' } : {}}
-                        >
-                            <use xlinkHref="#icon-bookmark" />
-                        </svg>
-                        <span className="visually-hidden">To bookmarks</span>
-                    </button>
+                    <ButtonBookmark
+                        width={18}
+                        height={19}
+                        svgClassName="place-card__bookmark-icon"
+                        isFavorite={isFavorite}
+                        customClassName="place-card__bookmark-button"
+                        hotelId={String(id)}
+                    />
                 </div>
                 <div className="place-card__rating rating">
                     <div className="place-card__stars rating__stars">
