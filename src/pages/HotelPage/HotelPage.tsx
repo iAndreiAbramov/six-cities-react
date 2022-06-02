@@ -104,100 +104,88 @@ export const HotelPage: React.FC = () => {
 
     return (
         <>
-            {isFetchingComplete ? (
-                <>
-                    <SvgInject />
-                    <div className="page">
-                        <PageHeader isWithUser />
-                        <main className="page__main page__main--property">
-                            <section className="property">
-                                <HotelImageGallery images={offerImages} />
-                                <div className="property__container container">
-                                    <div className="property__wrapper">
-                                        {isPremium && (
-                                            <div className="property__mark">
-                                                <span>Premium</span>
-                                            </div>
-                                        )}
-                                        <div className="property__name-wrapper">
-                                            <h1 className="property__name">{title}</h1>
-                                            <ButtonBookmark
-                                                width={31}
-                                                height={33}
-                                                isFavorite={isFavorite}
-                                                customClassName="property__bookmark-button"
-                                                svgClassName="property__bookmark-icon"
-                                                hotelId={id}
-                                            />
-                                        </div>
-                                        <div className="property__rating rating">
-                                            <div className="property__stars rating__stars">
-                                                <span
-                                                    style={{ width: `${Math.round(rating) * 20}%` }}
-                                                />
-                                                <span className="visually-hidden">Rating</span>
-                                            </div>
-                                            <span className="property__rating-value rating__value">
-                                                {rating}
-                                            </span>
-                                        </div>
-                                        <ul className="property__features">
-                                            <li className="property__feature property__feature--entire">
-                                                {type}
-                                            </li>
-                                            <li className="property__feature property__feature--bedrooms">
-                                                {`${bedrooms} Bedrooms`}
-                                            </li>
-                                            <li className="property__feature property__feature--adults">
-                                                {`Max ${maxAdults} adults`}
-                                            </li>
-                                        </ul>
-                                        <div className="property__price">
-                                            <b className="property__price-value">&euro;{price}</b>
-                                            <span className="property__price-text">
-                                                &nbsp;night
-                                            </span>
-                                        </div>
-                                        <div className="property__inside">
-                                            <h2 className="property__inside-title">
-                                                What&apos;s inside
-                                            </h2>
-                                            <ul className="property__inside-list">
-                                                {goods?.map((good) => (
-                                                    <li
-                                                        className="property__inside-item"
-                                                        key={good}
-                                                    >
-                                                        {good}
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                        <HotelHost host={host} description={description} />
-                                        <HotelReviews id={id} />
-                                    </div>
-                                </div>
-                                <Map
-                                    pointsForMap={pointsForMap}
-                                    cityLocation={cityLocation}
-                                    activeHotelId={activeHotelId}
-                                />
-                            </section>
-                            <div className="container">
-                                <HotelNearPlaces
-                                    nearPlaces={nearPlaces}
-                                    handleActiveHotelIdChange={handleActiveHotelIdChange}
-                                />
-                            </div>
-                        </main>
-                    </div>
-                </>
-            ) : (
+            {!isFetchingComplete && (
                 <LoaderDelayed
                     dependencies={[isHotelFetching, areCommentsFetching, areNearbyFetching]}
                     handleContentIsReady={setIsFetchingComplete}
                 />
             )}
+            <SvgInject />
+            <div className="page">
+                <PageHeader isWithUser />
+                <main className="page__main page__main--property">
+                    <section className="property">
+                        <HotelImageGallery images={offerImages} />
+                        <div className="property__container container">
+                            <div className="property__wrapper">
+                                {isPremium && (
+                                    <div className="property__mark">
+                                        <span>Premium</span>
+                                    </div>
+                                )}
+                                <div className="property__name-wrapper">
+                                    <h1 className="property__name">{title}</h1>
+                                    <ButtonBookmark
+                                        width={31}
+                                        height={33}
+                                        isFavorite={isFavorite}
+                                        customClassName="property__bookmark-button"
+                                        svgClassName="property__bookmark-icon"
+                                        hotelId={id}
+                                    />
+                                </div>
+                                <div className="property__rating rating">
+                                    <div className="property__stars rating__stars">
+                                        <span style={{ width: `${Math.round(rating) * 20}%` }} />
+                                        <span className="visually-hidden">Rating</span>
+                                    </div>
+                                    <span className="property__rating-value rating__value">
+                                        {rating}
+                                    </span>
+                                </div>
+                                <ul className="property__features">
+                                    <li className="property__feature property__feature--entire">
+                                        {type}
+                                    </li>
+                                    <li className="property__feature property__feature--bedrooms">
+                                        {`${bedrooms} Bedrooms`}
+                                    </li>
+                                    <li className="property__feature property__feature--adults">
+                                        {`Max ${maxAdults} adults`}
+                                    </li>
+                                </ul>
+                                <div className="property__price">
+                                    <b className="property__price-value">&euro;{price}</b>
+                                    <span className="property__price-text">&nbsp;night</span>
+                                </div>
+                                <div className="property__inside">
+                                    <h2 className="property__inside-title">What&apos;s inside</h2>
+                                    <ul className="property__inside-list">
+                                        {goods?.map((good) => (
+                                            <li className="property__inside-item" key={good}>
+                                                {good}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                                <HotelHost host={host} description={description} />
+                                <HotelReviews id={id} />
+                            </div>
+                        </div>
+                        <Map
+                            pointsForMap={pointsForMap}
+                            cityLocation={cityLocation}
+                            activeHotelId={activeHotelId}
+                        />
+                    </section>
+                    <div className="container">
+                        <HotelNearPlaces
+                            nearPlaces={nearPlaces}
+                            handleActiveHotelIdChange={handleActiveHotelIdChange}
+                        />
+                    </div>
+                </main>
+            </div>
         </>
     );
 };

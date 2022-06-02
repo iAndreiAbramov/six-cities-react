@@ -44,8 +44,6 @@ export const HotelsListCard: React.FC<IHotelsListCardProps> = ({
                     <ProgressiveImage
                         preview="img/stub.jpg"
                         src={previewImage}
-                        initialBlur={500}
-                        transitionTime={500}
                         render={(src) => (
                             <img
                                 className="place-card__image"

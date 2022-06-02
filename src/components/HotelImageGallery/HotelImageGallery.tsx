@@ -1,4 +1,5 @@
 import React from 'react';
+import ProgressiveImage from 'react-progressive-image-loading';
 
 interface IHotelImageGalleryProps {
     images: string[];
@@ -10,7 +11,13 @@ export const HotelImageGallery: React.FC<IHotelImageGalleryProps> = ({ images })
             <div className="property__gallery">
                 {images?.map((image) => (
                     <div className="property__image-wrapper" key={image}>
-                        <img className="property__image" src={image} alt="Offer view" />
+                        <ProgressiveImage
+                            preview="img/stub.jpg"
+                            src={image}
+                            render={(src) => (
+                                <img className="property__image" src={src} alt="Offer view" />
+                            )}
+                        />
                     </div>
                 ))}
             </div>
