@@ -26,7 +26,7 @@ export const FavoritesListCard: React.FC<IFavoritesListCardProps> = ({
     previewImage,
 }) => {
     return (
-        <article className="favorites__card place-card">
+        <article className="favorites__card place-card" style={{ minHeight: '116px' }}>
             {isPremium && (
                 <div className="place-card__mark">
                     <span>Premium</span>

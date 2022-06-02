@@ -1,9 +1,11 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AppRoute } from 'constants/AppRoute';
 import { FavoriteStatus } from 'constants/FavoriteStatus';
+import { FetchStatus } from 'constants/FetchStatus';
 import { Notification } from 'constants/Notification';
+import { selectFavoritesPostFetchStatus } from 'store/selectors/hotels-selectors';
 import { selectUserEmail } from 'store/selectors/user-selectors';
 import { useAppDispatch } from 'store/store';
 import { postFavoriteThunkAction } from 'store/thunk-actions/favorites-thunk-actions';
@@ -31,6 +33,12 @@ export const ButtonBookmark: React.FC<IButtonBookmarkProps> = ({
     const navigate = useNavigate();
     const isLoggedIn = !!useSelector(selectUserEmail);
     const location = useLocation();
+    const favoritesPostFetchStatus = useSelector(selectFavoritesPostFetchStatus);
+
+    const isPosting = useMemo(
+        () => favoritesPostFetchStatus === FetchStatus.Fetching,
+        [favoritesPostFetchStatus],
+    );
 
     const handleButtonClick = useCallback(() => {
         if (!isLoggedIn) {
@@ -50,6 +58,7 @@ export const ButtonBookmark: React.FC<IButtonBookmarkProps> = ({
             className={`button ${customClassName ? customClassName : ''}`}
             type="button"
             onClick={handleButtonClick}
+            disabled={isPosting}
         >
             <svg
                 className={svgClassName}

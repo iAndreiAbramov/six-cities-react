@@ -350,7 +350,7 @@ img {
 }
 
 .page__main--favorites {
-    padding-top: 11px
+    padding-top: 11px;
 }
 
 .page__main--favorites-empty {
@@ -738,6 +738,7 @@ img {
     line-height: 1.211;
     font-weight: 300;
     font-style: oblique;
+    cursor: pointer;
     -webkit-transform: skew(-15deg);
     transform: skew(-15deg);
     border-radius: 3px;
@@ -1890,7 +1891,8 @@ img {
 }
 
 .favorites__card:last-child {
-    margin-bottom: 0
+    margin-bottom: 0;
+    min-height: 116px;
 }
 
 .favorites__image-wrapper {

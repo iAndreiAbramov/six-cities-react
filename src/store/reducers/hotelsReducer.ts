@@ -86,12 +86,9 @@ const hotelsSlice = createSlice({
 
                 if (storedFavoriteItemIndex !== -1) {
                     state.favoritesData = [
-                        ...state.favoritesData.slice(0, storedHotelItemIndex),
-                        payload,
-                        ...state.favoritesData.slice(storedHotelItemIndex + 1),
+                        ...state.favoritesData.slice(0, storedFavoriteItemIndex),
+                        ...state.favoritesData.slice(storedFavoriteItemIndex + 1),
                     ];
-                } else {
-                    state.favoritesData.push(payload);
                 }
             })
             .addCase(postFavoriteThunkAction.rejected, (state, { error }) => {

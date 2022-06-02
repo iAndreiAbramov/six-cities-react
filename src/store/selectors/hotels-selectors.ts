@@ -24,3 +24,13 @@ export const selectFavoritesByCities = createSelector([getHotelsState], (hotels)
 
     return favorites;
 });
+
+export const selectFavoritesFetchStatus = createSelector(
+    [getHotelsState],
+    (hotels) => hotels.favoritesGetFetchStatus,
+);
+
+export const selectFavoritesPostFetchStatus = createSelector(
+    [getHotelsState],
+    (hotels) => hotels.favoritesPostFetchStatus,
+);

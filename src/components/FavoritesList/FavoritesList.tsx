@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'constants/AppRoute';
+import { QueryParam } from 'constants/QueryParam';
+import { useQuery } from 'hooks/useQuery';
 import { selectFavoritesByCities } from 'store/selectors/hotels-selectors';
 import { useAppDispatch } from 'store/store';
 import { requestFavoritesThunkAction } from 'store/thunk-actions/favorites-thunk-actions';
@@ -11,6 +13,19 @@ import { FavoritesListCard } from 'components/FavoritesListCard';
 export const FavoritesList: React.FC = () => {
     const dispatch = useAppDispatch();
     const favorites = useSelector(selectFavoritesByCities);
+    const query = useQuery();
+    const navigate = useNavigate();
+
+    const handleLinkClick = useCallback(
+        (cityName: string) => {
+            query.set(QueryParam.City, cityName);
+            navigate({
+                pathname: AppRoute.Home(),
+                search: query.toString(),
+            });
+        },
+        [query, navigate],
+    );
 
     useEffect(() => {
         void dispatch(requestFavoritesThunkAction());
@@ -24,9 +39,12 @@ export const FavoritesList: React.FC = () => {
                     <li className="favorites__locations-items" key={cityName}>
                         <div className="favorites__locations locations locations--current">
                             <div className="locations__item">
-                                <Link className="locations__item-link" to={AppRoute.Home()}>
+                                <span
+                                    className="locations__item-link"
+                                    onClick={() => handleLinkClick(cityName)}
+                                >
                                     <span>{cityName}</span>
-                                </Link>
+                                </span>
                             </div>
                         </div>
                         <div className="favorites__places">
