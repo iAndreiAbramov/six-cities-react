@@ -21,38 +21,35 @@ export const FavoritesPage: React.FC = () => {
 
     return (
         <>
-            {isFetchingComplete ? (
-                <>
-                    <SvgInject />
-                    <div className="page" style={{ minHeight: '100vh' }}>
-                        <PageHeader isWithUser />
-                        <main className="page__main page__main--favorites">
-                            <div className="page__favorites-container container">
-                                <section className="favorites">
-                                    <h1 className="favorites__title">Saved listing</h1>
-                                    <FavoritesList />
-                                </section>
-                            </div>
-                        </main>
-                        <footer className="footer container">
-                            <Link className="footer__logo-link" to={AppRoute.Home()}>
-                                <img
-                                    className="footer__logo"
-                                    src="/img/logo.svg"
-                                    alt="6 cities logo"
-                                    width="64"
-                                    height="33"
-                                />
-                            </Link>
-                        </footer>
-                    </div>
-                </>
-            ) : (
+            {!isFetchingComplete && (
                 <LoaderDelayed
                     dependencies={[isFavoritesFetching]}
                     handleContentIsReady={setIsFetchingComplete}
                 />
             )}
+            <SvgInject />
+            <div className="page" style={{ minHeight: '100vh' }}>
+                <PageHeader isWithUser />
+                <main className="page__main page__main--favorites">
+                    <div className="page__favorites-container container">
+                        <section className="favorites">
+                            <h1 className="favorites__title">Saved listing</h1>
+                            <FavoritesList />
+                        </section>
+                    </div>
+                </main>
+                <footer className="footer container">
+                    <Link className="footer__logo-link" to={AppRoute.Home()}>
+                        <img
+                            className="footer__logo"
+                            src="/img/logo.svg"
+                            alt="6 cities logo"
+                            width="64"
+                            height="33"
+                        />
+                    </Link>
+                </footer>
+            </div>
         </>
     );
 };

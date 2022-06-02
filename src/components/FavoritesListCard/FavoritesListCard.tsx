@@ -1,4 +1,5 @@
 import React from 'react';
+import ProgressiveImage from 'react-progressive-image-loading';
 import { Link } from 'react-router-dom';
 import { AppRoute } from 'constants/AppRoute';
 
@@ -34,12 +35,18 @@ export const FavoritesListCard: React.FC<IFavoritesListCardProps> = ({
             )}
             <div className="favorites__image-wrapper place-card__image-wrapper">
                 <Link to={AppRoute.Hotel(String(id))}>
-                    <img
-                        className="place-card__image"
+                    <ProgressiveImage
+                        preview="img/stub.jpg"
                         src={previewImage}
-                        width="150"
-                        height="110"
-                        alt="Place image"
+                        render={(src) => (
+                            <img
+                                className="place-card__image"
+                                src={src}
+                                width="150"
+                                height="110"
+                                alt="Place image"
+                            />
+                        )}
                     />
                 </Link>
             </div>
