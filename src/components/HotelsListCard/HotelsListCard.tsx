@@ -1,4 +1,5 @@
 import React from 'react';
+import ProgressiveImage from 'react-progressive-image-loading';
 import { Link } from 'react-router-dom';
 import { AppRoute } from 'constants/AppRoute';
 import { MAX_RATING } from 'constants/common';
@@ -40,12 +41,20 @@ export const HotelsListCard: React.FC<IHotelsListCardProps> = ({
             )}
             <div className="cities__image-wrapper place-card__image-wrapper">
                 <Link to={AppRoute.Hotel(String(id))}>
-                    <img
-                        className="place-card__image"
+                    <ProgressiveImage
+                        preview="img/stub.jpg"
                         src={previewImage}
-                        width="260"
-                        height="200"
-                        alt="Place image"
+                        initialBlur={500}
+                        transitionTime={500}
+                        render={(src) => (
+                            <img
+                                className="place-card__image"
+                                src={src}
+                                width="260"
+                                height="200"
+                                alt="Place image"
+                            />
+                        )}
                     />
                 </Link>
             </div>

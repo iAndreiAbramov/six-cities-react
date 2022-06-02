@@ -857,7 +857,11 @@ img {
 }
 
 .place-card__image-wrapper {
-    margin-bottom: 9px
+    margin-bottom: 9px;
+    object-fit: contain;
+    max-width: 260px;
+    max-height: 200px;
+    overflow: hidden;
 }
 
 .place-card__image {

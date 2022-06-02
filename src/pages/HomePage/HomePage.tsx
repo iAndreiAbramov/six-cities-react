@@ -15,6 +15,7 @@ import { SortOption } from 'types/sort-options.types';
 import { HomePageNoContent } from 'components/HomePageNoContent';
 import { HomePageTabsList } from 'components/HomePageTabsList';
 import { HotelsList } from 'components/HotelsList';
+import { LoaderDelayed } from 'components/LoaderDelayed';
 import { Map } from 'components/Map';
 import { PageHeader } from 'components/PageHeader';
 import { SvgInject } from 'components/SvgInject';
@@ -27,6 +28,12 @@ export const HomePage: React.FC = () => {
     const hotels = useHotelsFilter(queryCity);
     const hotelsFetchStatus = useSelector(selectHotelsFetchStatus);
     const [activeHotelId, setActiveHotelId] = useState<number | null>(null);
+    const [isFetchingComplete, setIsFetchingComplete] = useState(false);
+
+    const areHotelsFetching = useMemo(
+        () => hotelsFetchStatus === FetchStatus.Fetching,
+        [hotelsFetchStatus],
+    );
 
     const activeCityName = useMemo(() => {
         if (!queryCity) {
@@ -79,6 +86,12 @@ export const HomePage: React.FC = () => {
 
     return (
         <>
+            {!isFetchingComplete && (
+                <LoaderDelayed
+                    dependencies={[areHotelsFetching]}
+                    handleContentIsReady={setIsFetchingComplete}
+                />
+            )}
             <SvgInject />
             <div className="page page--gray page--main">
                 <PageHeader isWithUser />
