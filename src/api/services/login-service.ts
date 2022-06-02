@@ -20,4 +20,5 @@ export const requestLogin = async (authInfo: IUserAuthRequest): Promise<IUserAut
 export const requestLoginCheck = async (): Promise<IUserAuthResponse> =>
     await api.get<Promise<IUserAuthResponse>>(ApiRoute.Login()).then((response) => response?.data);
 
-export const requestLogout = async (): Promise<void> => await api.delete(ApiRoute.Logout());
+export const requestLogout = async (): Promise<void> =>
+    await api.delete<Promise<void>>(ApiRoute.Logout()).then((response) => response?.data);

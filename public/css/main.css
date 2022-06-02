@@ -276,7 +276,11 @@ img {
 }
 
 .page {
-    background-color: #fff
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    background-color: #fff;
 }
 
 .page--login {
@@ -1951,7 +1955,8 @@ img {
     -ms-flex-align: start;
     align-items: flex-start;
     padding-top: 48px;
-    padding-bottom: 52px
+    padding-bottom: 52px;
+    margin-top: auto;
 }
 
 .header__logo-link:not(.header__logo-link--active):focus, .header__logo-link:not(.header__logo-link--active):hover {
