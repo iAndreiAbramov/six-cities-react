@@ -1,7 +1,7 @@
 import React from 'react';
 import { IHotelFront } from 'types/hotel.types';
 
-import { HotelsListItem } from 'components/HotelsListItem';
+import { HotelsListCard } from 'components/HotelsListCard';
 
 interface HotelNearPlacesProps {
     handleActiveHotelIdChange: (hotelId: number) => void;
@@ -18,8 +18,17 @@ export const HotelNearPlaces: React.FC<HotelNearPlacesProps> = ({
             <div className="near-places__list places__list">
                 {nearPlaces.length > 0 &&
                     nearPlaces.map(
-                        ({ id, isPremium, rating, type, title, price, previewImage }) => (
-                            <HotelsListItem
+                        ({
+                            id,
+                            isPremium,
+                            rating,
+                            type,
+                            title,
+                            price,
+                            previewImage,
+                            isFavorite,
+                        }) => (
+                            <HotelsListCard
                                 key={id}
                                 id={id}
                                 isPremium={isPremium}
@@ -29,6 +38,7 @@ export const HotelNearPlaces: React.FC<HotelNearPlacesProps> = ({
                                 price={price}
                                 previewImage={previewImage}
                                 handleActiveHotelIdChange={handleActiveHotelIdChange}
+                                isFavorite={isFavorite}
                             />
                         ),
                     )}

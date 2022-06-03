@@ -1,9 +1,12 @@
 import React from 'react';
+import ProgressiveImage from 'react-progressive-image-loading';
 import { Link } from 'react-router-dom';
 import { AppRoute } from 'constants/AppRoute';
 import { MAX_RATING } from 'constants/common';
 
-interface IHotelsListItemProps {
+import { ButtonBookmark } from 'components/ButtonBookmark';
+
+interface IHotelsListCardProps {
     id: number;
     isPremium: boolean;
     rating: number;
@@ -12,9 +15,10 @@ interface IHotelsListItemProps {
     price: number;
     previewImage: string;
     handleActiveHotelIdChange: (hotelId: number) => void;
+    isFavorite: boolean;
 }
 
-export const HotelsListItem: React.FC<IHotelsListItemProps> = ({
+export const HotelsListCard: React.FC<IHotelsListCardProps> = ({
     id,
     previewImage,
     title,
@@ -23,6 +27,7 @@ export const HotelsListItem: React.FC<IHotelsListItemProps> = ({
     isPremium,
     type,
     handleActiveHotelIdChange,
+    isFavorite,
 }) => {
     return (
         <article
@@ -36,12 +41,18 @@ export const HotelsListItem: React.FC<IHotelsListItemProps> = ({
             )}
             <div className="cities__image-wrapper place-card__image-wrapper">
                 <Link to={AppRoute.Hotel(String(id))}>
-                    <img
-                        className="place-card__image"
+                    <ProgressiveImage
+                        preview="img/stub.jpg"
                         src={previewImage}
-                        width="260"
-                        height="200"
-                        alt="Place image"
+                        render={(src) => (
+                            <img
+                                className="place-card__image"
+                                src={src}
+                                width="260"
+                                height="200"
+                                alt="Place image"
+                            />
+                        )}
                     />
                 </Link>
             </div>
@@ -51,12 +62,14 @@ export const HotelsListItem: React.FC<IHotelsListItemProps> = ({
                         <b className="place-card__price-value">&euro;{price}</b>
                         <span className="place-card__price-text">&#47;&nbsp;night</span>
                     </div>
-                    <button className="place-card__bookmark-button button" type="button">
-                        <svg className="place-card__bookmark-icon" width="18" height="19">
-                            <use xlinkHref="#icon-bookmark" />
-                        </svg>
-                        <span className="visually-hidden">To bookmarks</span>
-                    </button>
+                    <ButtonBookmark
+                        width={18}
+                        height={19}
+                        svgClassName="place-card__bookmark-icon"
+                        isFavorite={isFavorite}
+                        customClassName="place-card__bookmark-button"
+                        hotelId={String(id)}
+                    />
                 </div>
                 <div className="place-card__rating rating">
                     <div className="place-card__stars rating__stars">

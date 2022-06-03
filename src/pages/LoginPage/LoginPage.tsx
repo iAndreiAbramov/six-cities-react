@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import { AppRoute } from 'constants/AppRoute';
 import { selectUserEmail, selectUserError } from 'store/selectors/user-selectors';
 import { useAppDispatch } from 'store/store';
@@ -14,13 +14,16 @@ export const LoginPage: React.FC = () => {
     const dispatch = useAppDispatch();
     const userError = useSelector(selectUserError);
     const userEmail = useSelector(selectUserEmail);
+    const location = useLocation();
+    const destination =
+        (location?.state as { from: { pathname: string } })?.from?.pathname || AppRoute.Home();
 
     const handleFormSubmit = (values: IUserAuthRequest) => {
         void dispatch(requestLoginThunkAction(values));
     };
 
     if (userEmail) {
-        return <Navigate to={AppRoute.Home()} />;
+        return <Navigate to={destination} replace />;
     }
 
     return (

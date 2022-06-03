@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { FetchStatus } from 'constants/FetchStatus';
+import { postFavoriteThunkAction } from 'store/thunk-actions/favorites-thunk-actions';
 import {
     postCommentThunkAction,
     requestCommentsThunkAction,
@@ -21,6 +22,8 @@ export interface IHotelReducer {
     nearbyError?: string;
     nearbyFetchStatus: FetchStatus;
     nearbyData: IHotelFront[];
+    favoritesPostFetchStatus: FetchStatus;
+    favoritesPostError?: string;
 }
 
 const initialState: IHotelReducer = {
@@ -35,6 +38,8 @@ const initialState: IHotelReducer = {
     nearbyError: undefined,
     nearbyFetchStatus: FetchStatus.Initial,
     nearbyData: [] as IHotelFront[],
+    favoritesPostFetchStatus: FetchStatus.Initial,
+    favoritesPostError: undefined,
 };
 
 const hotelSlice = createSlice({
@@ -101,6 +106,30 @@ const hotelSlice = createSlice({
                 state.nearbyFetchStatus = FetchStatus.Error;
                 state.nearbyError = error.message;
                 state.nearbyData = [] as IHotelFront[];
+            })
+            .addCase(postFavoriteThunkAction.pending, (state) => {
+                state.favoritesPostFetchStatus = FetchStatus.Fetching;
+                state.favoritesPostError = undefined;
+            })
+            .addCase(postFavoriteThunkAction.fulfilled, (state, { payload }) => {
+                state.favoritesPostFetchStatus = FetchStatus.Done;
+                state.hotelData.isFavorite = payload.isFavorite;
+
+                const nearbyStoredItemIndex = state.nearbyData.findIndex(
+                    (item) => item.id === payload.id,
+                );
+
+                if (nearbyStoredItemIndex !== -1) {
+                    state.nearbyData = [
+                        ...state.nearbyData.slice(0, nearbyStoredItemIndex),
+                        payload,
+                        ...state.nearbyData.slice(nearbyStoredItemIndex + 1),
+                    ];
+                }
+            })
+            .addCase(postFavoriteThunkAction.rejected, (state, { error }) => {
+                state.favoritesPostFetchStatus = FetchStatus.Error;
+                state.favoritesPostError = error.message;
             });
     },
 });
