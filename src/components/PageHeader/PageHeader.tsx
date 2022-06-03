@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AppRoute } from 'constants/AppRoute';
 
 import { UserBlock } from 'components/UserBlock';
@@ -9,14 +9,24 @@ interface IPageHeader {
 }
 
 export const PageHeader: React.FC<IPageHeader> = ({ isWithUser }) => {
+    const { pathname } = useLocation();
+    const navigate = useNavigate();
+
+    const handleLogoClick = () => {
+        if (pathname !== AppRoute.Home()) {
+            navigate(AppRoute.Home());
+        }
+    };
+
     return (
         <header className="header">
             <div className="container">
                 <div className="header__wrapper">
                     <div className="header__left">
-                        <Link
-                            to={AppRoute.Home()}
+                        <span
                             className="header__logo-link header__logo-link--active"
+                            onClick={handleLogoClick}
+                            style={pathname !== AppRoute.Home() ? { cursor: 'pointer' } : {}}
                         >
                             <img
                                 className="header__logo"
@@ -25,7 +35,7 @@ export const PageHeader: React.FC<IPageHeader> = ({ isWithUser }) => {
                                 width="81"
                                 height="41"
                             />
-                        </Link>
+                        </span>
                     </div>
 
                     {isWithUser && <UserBlock />}
