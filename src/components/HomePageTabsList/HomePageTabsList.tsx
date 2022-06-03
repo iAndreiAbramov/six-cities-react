@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'constants/AppRoute';
-import { Cities, CityName } from 'constants/Cities';
+import { cities, CityName } from 'constants/Cities';
 import { QueryParam } from 'constants/QueryParam';
 import { useQuery } from 'hooks/useQuery';
 
@@ -26,7 +26,7 @@ export const HomePageTabsList: React.FC = () => {
         <div className="tabs">
             <section className="locations container">
                 <ul className="locations__list tabs__list">
-                    {Cities.map((name) => (
+                    {cities.map((name) => (
                         <HomePageTabsItem
                             key={name}
                             name={name}

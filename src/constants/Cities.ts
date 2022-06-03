@@ -7,7 +7,7 @@ export enum CityName {
     Dusseldorf = 'Dusseldorf',
 }
 
-export const Cities: CityName[] = [
+export const cities: CityName[] = [
     CityName.Paris,
     CityName.Cologne,
     CityName.Brussels,
