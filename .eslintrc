@@ -9,11 +9,15 @@
         "react",
         "react-hooks",
         "import",
-        "simple-import-sort"
+        "simple-import-sort",
+        "testing-library",
+        "jest-dom"
     ],
     "extends": [
         "prettier",
         "eslint:recommended",
+        "plugin:jest-dom/recommended",
+        "plugin:testing-library/react",
         "plugin:react/recommended",
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
