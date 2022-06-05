@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { render, screen } from '@testing-library/react';
-import { mockRootStore } from 'test-mocks/mock-stores';
+import { mockRootStoreUnauthorized } from 'test-mocks/mock-stores';
 
 import { App } from 'components/App';
 
@@ -13,7 +13,7 @@ describe('toast functions', () => {
 
     it('notifyError function should render message', async () => {
         render(
-            <Provider store={mockRootStore}>
+            <Provider store={mockRootStoreUnauthorized}>
                 <ToastContainer />
                 <App />
             </Provider>,
@@ -27,7 +27,7 @@ describe('toast functions', () => {
 
     it('notifySuccess function should render message', async () => {
         render(
-            <Provider store={mockRootStore}>
+            <Provider store={mockRootStoreUnauthorized}>
                 <ToastContainer />
                 <App />
             </Provider>,
@@ -41,7 +41,7 @@ describe('toast functions', () => {
 
     it('notifyInfo function should render message', async () => {
         render(
-            <Provider store={mockRootStore}>
+            <Provider store={mockRootStoreUnauthorized}>
                 <ToastContainer />
                 <App />
             </Provider>,

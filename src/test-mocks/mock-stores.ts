@@ -7,6 +7,8 @@ import { hotelsInitialState, IHotelsReducer } from 'store/reducers/hotelsReducer
 import { IUserReducer, userInitialState } from 'store/reducers/userReducer';
 import { RootReducerTypes } from 'store/store';
 
+import { userInitialStateWithData } from './user-mocks';
+
 const middlewares = [thunk];
 
 const mockStoreUser = configureMockStore<
@@ -15,7 +17,8 @@ const mockStoreUser = configureMockStore<
     ThunkDispatch<IUserReducer, unknown, Action>
 >(middlewares);
 
-export const mockUserStore = mockStoreUser(userInitialState);
+export const mockUserStoreEmpty = mockStoreUser(userInitialState);
+export const mockUserStoreWithData = mockStoreUser(userInitialStateWithData);
 
 const mockStoreHotel = configureMockStore<
     IHotelReducer,
@@ -39,8 +42,14 @@ const mockStoreRoot = configureMockStore<
     ThunkDispatch<RootReducerTypes, unknown, Action>
 >(middlewares);
 
-export const mockRootStore = mockStoreRoot({
+export const mockRootStoreUnauthorized = mockStoreRoot({
     user: userInitialState,
+    hotel: hotelInitialState,
+    hotels: hotelsInitialState,
+});
+
+export const mockRootStoreAuthorized = mockStoreRoot({
+    user: userInitialStateWithData,
     hotel: hotelInitialState,
     hotels: hotelsInitialState,
 });

@@ -1,18 +1,17 @@
-import React, { useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'constants/AppRoute';
 import { QueryParam } from 'constants/QueryParam';
 import { useQuery } from 'hooks/useQuery';
-import { selectFavoritesByCities } from 'store/selectors/hotels-selectors';
-import { useAppDispatch } from 'store/store';
-import { requestFavoritesThunkAction } from 'store/thunk-actions/favorites-thunk-actions';
+import { IHotelFront } from 'types/hotel.types';
 
 import { FavoritesListCard } from 'components/FavoritesListCard';
 
-export const FavoritesList: React.FC = () => {
-    const dispatch = useAppDispatch();
-    const favorites = useSelector(selectFavoritesByCities);
+interface IFavoritesListProps {
+    favorites: Record<string, IHotelFront[]>;
+}
+
+export const FavoritesList: React.FC<IFavoritesListProps> = ({ favorites }) => {
     const query = useQuery();
     const navigate = useNavigate();
 
@@ -26,10 +25,6 @@ export const FavoritesList: React.FC = () => {
         },
         [query, navigate],
     );
-
-    useEffect(() => {
-        void dispatch(requestFavoritesThunkAction());
-    }, [dispatch]);
 
     return (
         <ul className="favorites__list">
