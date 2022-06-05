@@ -3,6 +3,9 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { api } from 'api/api';
+import MockAdapter from 'axios-mock-adapter';
+import { ApiRoute } from 'constants/ApiRoute';
 import { AppRoute } from 'constants/AppRoute';
 import { mockRootStoreAuthorized, mockRootStoreUnauthorized } from 'test-mocks/mock-stores';
 
@@ -57,6 +60,9 @@ describe('UserBlock', () => {
     });
 
     it('it should reset user data on logout', () => {
+        const mockApi = new MockAdapter(api);
+        mockApi.onDelete(ApiRoute.Logout()).reply(201);
+
         render(
             <Provider store={mockRootStoreAuthorized}>
                 <BrowserRouter window={window} basename={AppRoute.Home()}>

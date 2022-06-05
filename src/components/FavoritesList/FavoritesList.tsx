@@ -38,7 +38,7 @@ export const FavoritesList: React.FC<IFavoritesListProps> = ({ favorites }) => {
                                     className="locations__item-link"
                                     onClick={() => handleLinkClick(cityName)}
                                 >
-                                    <span>{cityName}</span>
+                                    <span data-testid="favorites-city">{cityName}</span>
                                 </span>
                             </div>
                         </div>

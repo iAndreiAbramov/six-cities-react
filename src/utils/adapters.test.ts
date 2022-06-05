@@ -5,10 +5,10 @@ import {
     COMMENTS_FRONT_MOCK,
 } from 'test-mocks/comments-mock';
 import {
-    HOTELS_BACK,
-    HOTELS_FRONT,
     MOCK_HOTEL_FIRST_BACK,
     MOCK_HOTEL_FIRST_FRONT,
+    MOCK_HOTELS_BACK,
+    MOCK_HOTELS_FRONT,
 } from 'test-mocks/hotel-mocks';
 import { MOCK_USER_BACK, MOCK_USER_FRONT } from 'test-mocks/user-mocks';
 
@@ -30,7 +30,7 @@ describe('adapters', () => {
     });
 
     it('adaptHotelsListToFront should return correct data', () => {
-        expect(adaptHotelsListToFront(HOTELS_BACK)).toEqual(HOTELS_FRONT);
+        expect(adaptHotelsListToFront(MOCK_HOTELS_BACK)).toEqual(MOCK_HOTELS_FRONT);
     });
 
     it('adaptCommentToFront should return correct data', () => {

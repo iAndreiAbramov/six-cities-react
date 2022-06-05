@@ -30,7 +30,7 @@ export const MOCK_HOTEL_FIRST_BACK: IHotelBack = {
     ['max_adults']: 3,
     ['preview_image']: 'preview/img',
     price: 100,
-    rating: 5,
+    rating: 1,
     title: 'title',
     type: 'type',
 };
@@ -65,7 +65,7 @@ export const MOCK_HOTEL_FIRST_FRONT: IHotelFront = {
     maxAdults: 3,
     previewImage: 'preview/img',
     price: 100,
-    rating: 5,
+    rating: 1,
     title: 'title',
     type: 'type',
 };
@@ -78,7 +78,7 @@ export const MOCK_HOTEL_SECOND_BACK: IHotelBack = {
             longitude: 300,
             zoom: 10,
         },
-        name: 'Amsterdam',
+        name: 'Paris',
     },
     description: 'nice place',
     goods: ['1', '2', '3'],
@@ -99,8 +99,8 @@ export const MOCK_HOTEL_SECOND_BACK: IHotelBack = {
     },
     ['max_adults']: 3,
     ['preview_image']: 'preview/img',
-    price: 100,
-    rating: 5,
+    price: 200,
+    rating: 2,
     title: 'title',
     type: 'type',
 };
@@ -113,7 +113,7 @@ export const MOCK_HOTEL_SECOND_FRONT: IHotelFront = {
             longitude: 300,
             zoom: 10,
         },
-        name: 'Amsterdam',
+        name: 'Paris',
     },
     description: 'nice place',
     goods: ['1', '2', '3'],
@@ -134,8 +134,8 @@ export const MOCK_HOTEL_SECOND_FRONT: IHotelFront = {
     },
     maxAdults: 3,
     previewImage: 'preview/img',
-    price: 100,
-    rating: 5,
+    price: 200,
+    rating: 2,
     title: 'title',
     type: 'type',
 };
@@ -169,8 +169,8 @@ export const MOCK_HOTEL_THIRD_BACK: IHotelBack = {
     },
     ['max_adults']: 3,
     ['preview_image']: 'preview/img',
-    price: 100,
-    rating: 5,
+    price: 300,
+    rating: 3,
     title: 'title',
     type: 'type',
 };
@@ -204,19 +204,19 @@ export const MOCK_HOTEL_THIRD_FRONT: IHotelFront = {
     },
     maxAdults: 3,
     previewImage: 'preview/img',
-    price: 100,
-    rating: 5,
+    price: 300,
+    rating: 3,
     title: 'title',
     type: 'type',
 };
 
-export const HOTELS_BACK: IHotelBack[] = [
+export const MOCK_HOTELS_BACK: IHotelBack[] = [
     MOCK_HOTEL_FIRST_BACK,
     MOCK_HOTEL_SECOND_BACK,
     MOCK_HOTEL_THIRD_BACK,
 ];
 
-export const HOTELS_FRONT: IHotelFront[] = [
+export const MOCK_HOTELS_FRONT: IHotelFront[] = [
     MOCK_HOTEL_FIRST_FRONT,
     MOCK_HOTEL_SECOND_FRONT,
     MOCK_HOTEL_THIRD_FRONT,
