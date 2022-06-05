@@ -1,12 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'constants/AppRoute';
 import { CityName } from 'constants/Cities';
 import { QueryParam } from 'constants/QueryParam';
 import { useQuery } from 'hooks/useQuery';
 import { useRandomCity } from 'hooks/useRandomCity';
-import { selectUserEmail, selectUserError } from 'store/selectors/user-selectors';
+import { selectUserError } from 'store/selectors/user-selectors';
 import { useAppDispatch } from 'store/store';
 import { requestLoginThunkAction } from 'store/thunk-actions/login-thunk-actions';
 import { IUserAuthRequest } from 'types/user-auth.types';
@@ -18,10 +18,6 @@ import { SvgInject } from 'components/SvgInject';
 export const LoginPage: React.FC = () => {
     const dispatch = useAppDispatch();
     const userError = useSelector(selectUserError);
-    const userEmail = useSelector(selectUserEmail);
-    const location = useLocation();
-    const destination =
-        (location?.state as { from: { pathname: string } })?.from?.pathname || AppRoute.Home();
     const query = useQuery();
     const navigate = useNavigate();
 
@@ -38,10 +34,6 @@ export const LoginPage: React.FC = () => {
     const handleFormSubmit = (values: IUserAuthRequest) => {
         void dispatch(requestLoginThunkAction(values));
     };
-
-    if (userEmail) {
-        return <Navigate to={destination} replace />;
-    }
 
     return (
         <>
