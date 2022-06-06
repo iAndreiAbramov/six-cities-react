@@ -37,6 +37,7 @@
         ]
     },
     "rules": {
+        "jest-dom/prefer-to-have-value": "off",
         "eslint-comments/no-unused-disable": "warn",
         "eslint-comments/no-use": "error",
         "no-debugger": "error",

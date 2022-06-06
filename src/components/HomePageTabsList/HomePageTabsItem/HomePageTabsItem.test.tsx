@@ -9,5 +9,12 @@ describe('HomePageTabsItem', () => {
         render(<HomePageTabsItem name={CityName.Paris} handleClick={() => null} />);
 
         expect(screen.getByText(CityName.Paris)).toBeInTheDocument();
+        expect(screen.getByTestId('tab-item')).not.toHaveClass('tabs__item--active');
+    });
+
+    it('should correctly render active state', () => {
+        render(<HomePageTabsItem name={CityName.Paris} handleClick={() => null} isActive />);
+
+        expect(screen.getByTestId('tab-item')).toHaveClass('tabs__item--active');
     });
 });

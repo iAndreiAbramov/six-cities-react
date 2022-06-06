@@ -11,7 +11,7 @@ import { userInitialStateWithData } from './user-mocks';
 
 const middlewares = [thunk];
 
-const mockStoreRoot = configureMockStore<
+export const mockStoreRoot = configureMockStore<
     RootReducerTypes,
     Action,
     ThunkDispatch<RootReducerTypes, unknown, Action>

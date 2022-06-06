@@ -4,7 +4,7 @@ import { FavoriteStatus } from 'constants/FavoriteStatus';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 
-import { COMMENT_BACK_MOCK } from './comments-mock';
+import { COMMENT_BACK_MOCK_FIRST } from './comments-mock';
 import { MOCK_HOTEL_FIRST_BACK, MOCK_HOTEL_THIRD_BACK, MOCK_HOTELS_BACK } from './hotel-mocks';
 import { MOCK_USER_BACK } from './user-mocks';
 
@@ -48,7 +48,7 @@ export const mockServer = setupServer(
 
     // get comments
     rest.get(getMockUrl(ApiRoute.Comments(hotelTestId)), (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json(COMMENT_BACK_MOCK));
+        return res(ctx.status(200), ctx.json(COMMENT_BACK_MOCK_FIRST));
     }),
 
     // get nearby offers

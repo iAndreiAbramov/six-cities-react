@@ -1,6 +1,6 @@
 import {
-    COMMENT_BACK_MOCK,
-    COMMENT_FRONT_MOCK,
+    COMMENT_BACK_MOCK_FIRST,
+    COMMENT_FRONT_MOCK_FIRST,
     COMMENTS_BACK_MOCK,
     COMMENTS_FRONT_MOCK,
 } from 'test-mocks/comments-mock';
@@ -34,7 +34,7 @@ describe('adapters', () => {
     });
 
     it('adaptCommentToFront should return correct data', () => {
-        expect(adaptCommentToFront(COMMENT_BACK_MOCK)).toEqual(COMMENT_FRONT_MOCK);
+        expect(adaptCommentToFront(COMMENT_BACK_MOCK_FIRST)).toEqual(COMMENT_FRONT_MOCK_FIRST);
     });
 
     it('adaptCommentsToFront should return correct data', () => {
