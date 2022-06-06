@@ -90,7 +90,7 @@ export const MOCK_HOTEL_SECOND_BACK: IHotelBack = {
     },
     id: 2,
     images: ['1', '2', '3'],
-    ['is_favorite']: true,
+    ['is_favorite']: false,
     ['is_premium']: true,
     location: {
         latitude: 300,
@@ -125,7 +125,7 @@ export const MOCK_HOTEL_SECOND_FRONT: IHotelFront = {
     },
     id: 2,
     images: ['1', '2', '3'],
-    isFavorite: true,
+    isFavorite: false,
     isPremium: true,
     location: {
         latitude: 300,

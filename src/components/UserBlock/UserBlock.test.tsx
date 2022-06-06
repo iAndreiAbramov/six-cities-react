@@ -3,9 +3,6 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { api } from 'api/api';
-import MockAdapter from 'axios-mock-adapter';
-import { ApiRoute } from 'constants/ApiRoute';
 import { AppRoute } from 'constants/AppRoute';
 import { mockRootStoreAuthorized, mockRootStoreUnauthorized } from 'test-mocks/mock-stores';
 
@@ -59,10 +56,7 @@ describe('UserBlock', () => {
         expect(screen.getByText('Favorites page')).toBeInTheDocument();
     });
 
-    it('it should reset user data on logout', () => {
-        const mockApi = new MockAdapter(api);
-        mockApi.onDelete(ApiRoute.Logout()).reply(201);
-
+    it('it should reset user data on logout', async () => {
         render(
             <Provider store={mockRootStoreAuthorized}>
                 <BrowserRouter window={window} basename={AppRoute.Home()}>
@@ -73,9 +67,10 @@ describe('UserBlock', () => {
                 </BrowserRouter>
             </Provider>,
         );
+
         expect(mockRootStoreAuthorized.getState().user?.data?.email === 'email');
-        const logoutLink = screen.getByText(/sign out/i);
-        userEvent.click(logoutLink);
+        const logoutLinkAuthorized = await screen.findByText(/sign out/i);
+        userEvent.click(logoutLinkAuthorized);
         expect(mockRootStoreAuthorized.getState().user?.data?.email === undefined);
     });
 });

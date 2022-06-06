@@ -3,7 +3,7 @@ import { IUserAuthResponse } from 'types/user-auth.types';
 
 import { getToken, setToken } from './token';
 
-const BASE_URL = 'https://8.react.pages.academy/six-cities';
+export const BASE_URL = 'https://8.react.pages.academy/six-cities';
 const REQUEST_TIMEOUT = 5000;
 const AUTH_TOKEN_NAME = 'X-Token';
 
