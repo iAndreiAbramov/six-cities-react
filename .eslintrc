@@ -11,13 +11,15 @@
         "import",
         "simple-import-sort",
         "testing-library",
-        "jest-dom"
+        "jest-dom",
+        "cypress"
     ],
     "extends": [
         "prettier",
         "eslint:recommended",
         "plugin:jest-dom/recommended",
         "plugin:testing-library/react",
+        "plugin:cypress/recommended",
         "plugin:react/recommended",
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
