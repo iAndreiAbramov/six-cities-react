@@ -26,7 +26,7 @@ export interface IHotelReducer {
     favoritesPostError?: string;
 }
 
-const initialState: IHotelReducer = {
+export const hotelInitialState: IHotelReducer = {
     hotelError: undefined,
     hotelFetchStatus: FetchStatus.Initial,
     hotelData: {} as IHotelFront,
@@ -44,7 +44,7 @@ const initialState: IHotelReducer = {
 
 const hotelSlice = createSlice({
     name: 'hotel',
-    initialState,
+    initialState: hotelInitialState,
     reducers: {
         resetCommentPostStateAction: (state) => {
             state.commentPostError = undefined;

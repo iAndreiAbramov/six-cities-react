@@ -24,7 +24,7 @@ export const LoaderDelayed: React.FC<ILoaderDelayedProps> = ({
     }, [isTimeElapsed, dependencies, handleContentIsReady]);
 
     return (
-        <div className="loaderWrapper">
+        <div className="loaderWrapper" data-testid="loader">
             <Loader />
         </div>
     );

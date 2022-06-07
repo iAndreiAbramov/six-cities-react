@@ -54,7 +54,7 @@ export const HotelReviews: React.FC<IHotelReviewsProps> = ({ id }) => {
                 <>
                     <ul className="reviews__list">
                         {preparedComments.map(({ user, rating, comment, id, date }) => (
-                            <li className="reviews__item" key={id}>
+                            <li className="reviews__item" data-testid="review" key={id}>
                                 <div className="reviews__user user">
                                     <div className="reviews__avatar-wrapper user__avatar-wrapper">
                                         <img

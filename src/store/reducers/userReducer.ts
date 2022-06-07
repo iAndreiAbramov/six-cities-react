@@ -14,7 +14,7 @@ export interface IUserReducer {
     data: IUserFront;
 }
 
-const initialState: IUserReducer = {
+export const userInitialState: IUserReducer = {
     error: undefined,
     loginFetchStatus: FetchStatus.Initial,
     checkFetchStatus: FetchStatus.Initial,
@@ -23,7 +23,7 @@ const initialState: IUserReducer = {
 
 const userSlice = createSlice({
     name: 'user',
-    initialState,
+    initialState: userInitialState,
     reducers: {},
     extraReducers: (builder) => {
         builder

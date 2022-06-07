@@ -59,12 +59,14 @@ export const ButtonBookmark: React.FC<IButtonBookmarkProps> = ({
             type="button"
             onClick={handleButtonClick}
             disabled={isPosting}
+            data-testid="button-bookmark"
         >
             <svg
                 className={svgClassName}
                 width={width}
                 height={height}
                 style={isFavorite ? { fill: '#4481c3', stroke: '#4481c3' } : {}}
+                data-testid="bookmarks-svg"
             >
                 <use xlinkHref="#icon-bookmark" />
             </svg>

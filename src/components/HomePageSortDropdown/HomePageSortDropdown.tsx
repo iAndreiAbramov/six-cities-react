@@ -35,6 +35,7 @@ export const HomePageSortDropdown: React.FC<IHomePageSortDropdownProps> = ({
                 tabIndex={0}
                 style={{ userSelect: 'none' }}
                 onClick={handleDropDownToggle}
+                data-testid="dropdown-toggle"
             >
                 {currentSortDisplayName || SortOption.Popular}
                 <svg

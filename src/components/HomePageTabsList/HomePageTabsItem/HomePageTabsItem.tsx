@@ -16,6 +16,7 @@ export const HomePageTabsItem: React.FC<ITabItem> = ({ name, isActive, handleCli
                 }`}
                 onClick={() => handleClick(name)}
                 style={{ cursor: 'pointer' }}
+                data-testid="tab-item"
             >
                 <span>{name}</span>
             </span>

@@ -18,7 +18,7 @@ export interface IHotelsReducer {
     favoritesPostFetchStatus: FetchStatus;
 }
 
-const initialState: IHotelsReducer = {
+export const hotelsInitialState: IHotelsReducer = {
     hotelsError: undefined,
     hotelsFetchStatus: FetchStatus.Initial,
     hotelsData: [] as IHotelFront[],
@@ -31,7 +31,7 @@ const initialState: IHotelsReducer = {
 
 const hotelsSlice = createSlice({
     name: 'hotels',
-    initialState,
+    initialState: hotelsInitialState,
     reducers: {},
     extraReducers: (builder) => {
         builder

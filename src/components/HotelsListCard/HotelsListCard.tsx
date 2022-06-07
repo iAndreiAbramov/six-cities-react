@@ -33,6 +33,7 @@ export const HotelsListCard: React.FC<IHotelsListCardProps> = ({
         <article
             className="cities__place-card place-card"
             onMouseEnter={() => handleActiveHotelIdChange(id)}
+            data-testid="list-card"
         >
             {isPremium && (
                 <div className="place-card__mark">
@@ -73,7 +74,10 @@ export const HotelsListCard: React.FC<IHotelsListCardProps> = ({
                 </div>
                 <div className="place-card__rating rating">
                     <div className="place-card__stars rating__stars">
-                        <span style={{ width: `${Math.round((MAX_RATING * 100) / rating)}%` }} />
+                        <span
+                            style={{ width: `${Math.round((rating * 100) / MAX_RATING)}%` }}
+                            data-testid="card-stars"
+                        />
                         <span className="visually-hidden">Rating</span>
                     </div>
                 </div>

@@ -38,6 +38,7 @@ export const ReviewForm: React.FC<IReviewFormProps> = ({
                             form.resetFieldState('comment');
                         });
                     }}
+                    data-testid="review-form"
                 >
                     <label className="reviews__label form__label" htmlFor="comment">
                         Your review

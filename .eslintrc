@@ -9,11 +9,17 @@
         "react",
         "react-hooks",
         "import",
-        "simple-import-sort"
+        "simple-import-sort",
+        "testing-library",
+        "jest-dom",
+        "cypress"
     ],
     "extends": [
         "prettier",
         "eslint:recommended",
+        "plugin:jest-dom/recommended",
+        "plugin:testing-library/react",
+        "plugin:cypress/recommended",
         "plugin:react/recommended",
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
@@ -33,6 +39,7 @@
         ]
     },
     "rules": {
+        "jest-dom/prefer-to-have-value": "off",
         "eslint-comments/no-unused-disable": "warn",
         "eslint-comments/no-use": "error",
         "no-debugger": "error",

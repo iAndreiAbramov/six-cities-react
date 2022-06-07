@@ -30,6 +30,11 @@ export const selectFavoritesFetchStatus = createSelector(
     (hotels) => hotels.favoritesGetFetchStatus,
 );
 
+export const selectIsFavoritesEmpty = createSelector(
+    [getHotelsState],
+    (hotels) => hotels.favoritesData.length === 0,
+);
+
 export const selectFavoritesPostFetchStatus = createSelector(
     [getHotelsState],
     (hotels) => hotels.favoritesPostFetchStatus,

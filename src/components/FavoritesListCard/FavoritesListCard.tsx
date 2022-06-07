@@ -2,6 +2,7 @@ import React from 'react';
 import ProgressiveImage from 'react-progressive-image-loading';
 import { Link } from 'react-router-dom';
 import { AppRoute } from 'constants/AppRoute';
+import { MAX_RATING } from 'constants/common';
 
 import { ButtonBookmark } from 'components/ButtonBookmark';
 
@@ -67,7 +68,10 @@ export const FavoritesListCard: React.FC<IFavoritesListCardProps> = ({
                 </div>
                 <div className="place-card__rating rating">
                     <div className="place-card__stars rating__stars">
-                        <span style={{ width: `${Math.round(rating) * 20}%` }} />
+                        <span
+                            style={{ width: `${Math.round((rating * 100) / MAX_RATING)}%` }}
+                            data-testid="favorites-card"
+                        />
                         <span className="visually-hidden">Rating</span>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppRoute } from 'constants/AppRoute';
@@ -11,9 +11,11 @@ export const UserBlock: React.FC = () => {
     const userEmail = useSelector(selectUserEmail);
     const avatarUrl = useSelector(selectUserAvatar);
 
-    const handleLogout = () => {
-        void dispatch(requestLogoutThunkAction());
-    };
+    const handleLogout = useCallback(() => {
+        if (userEmail) {
+            void dispatch(requestLogoutThunkAction());
+        }
+    }, [userEmail, dispatch]);
 
     return (
         <nav className="header__nav">

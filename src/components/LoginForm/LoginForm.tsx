@@ -17,6 +17,7 @@ export const LoginForm: React.FC<ILoginFormProps> = ({ handleFormSubmit, error }
                     className={`login ${
                         (submitFailed && hasValidationErrors) || error ? 'shake' : ''
                     }`}
+                    data-testid="login-form"
                 >
                     <h1 className="login__title">Sign in</h1>
                     <form className="login__form form" onSubmit={handleSubmit}>

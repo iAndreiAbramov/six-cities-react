@@ -8,6 +8,7 @@ import { LoginPage } from 'pages/LoginPage';
 import { NotFoundPage } from 'pages/NotFound';
 
 import { PrivateRoute } from 'components/PrivateRoute';
+import { PublicRoute } from 'components/PublicRoute';
 
 export const App: React.FC = () => {
     return (
@@ -15,7 +16,14 @@ export const App: React.FC = () => {
             <Routes>
                 <Route path={AppRoute.Home()} element={<HomePage />} />
                 <Route path={AppRoute.Hotel(':id')} element={<HotelPage />} />
-                <Route path={AppRoute.Login()} element={<LoginPage />} />
+                <Route
+                    path={AppRoute.Login()}
+                    element={
+                        <PublicRoute>
+                            <LoginPage />
+                        </PublicRoute>
+                    }
+                />
                 <Route
                     path={AppRoute.Favorites()}
                     element={
