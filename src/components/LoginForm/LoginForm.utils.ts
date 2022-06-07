@@ -1,6 +1,7 @@
+import { ErrorMessage } from 'constants/ErrorMessage';
 import { IUserAuthRequest } from 'types/user-auth.types';
 
-type IUserAuthErrors = Record<keyof IUserAuthRequest, string | undefined>;
+type IUserAuthErrors = Record<keyof IUserAuthRequest, ErrorMessage | undefined>;
 
 export const EMAIL_PATTERN = new RegExp(
     "(?!(^[.-].*|[^@]*[.-]@|.*\\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\\/=?^_`{|}~.-]+@)(?!-.*|.*-\\.)([a-zA-Z0-9-]{1,63}\\.)+[a-zA-Z]{2,15}",
@@ -13,19 +14,19 @@ export const validateLoginForm = (values: IUserAuthRequest): IUserAuthErrors => 
     const { email, password } = values;
 
     if (!email) {
-        errors.email = 'Email is required';
+        errors.email = ErrorMessage.EmailIsRequired;
     }
 
-    if (EMAIL_PATTERN.exec(email) === null) {
-        errors.email = 'Valid email required. Try something like example@fake.com';
+    if (email && EMAIL_PATTERN.exec(email) === null) {
+        errors.email = ErrorMessage.EmailInvalid;
     }
 
     if (!password) {
-        errors.password = 'Password is required';
+        errors.password = ErrorMessage.PasswordIsRequired;
     }
 
-    if (PASSWORD_PATTERN.exec(password) === null) {
-        errors.password = 'Password must include one letter and one digit as minimum';
+    if (password && PASSWORD_PATTERN.exec(password) === null) {
+        errors.password = ErrorMessage.PasswordInvalid;
     }
 
     return errors;
